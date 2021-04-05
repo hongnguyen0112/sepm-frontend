@@ -99,3 +99,10 @@ main{
   font-weight: 700;
   text-shadow: 3px 3ox rgba(50,50,70,0,5);
 }
+
+.navbar-nav > li{
+  padding-left:30px;
+  padding-right:30px;
+}
+
+.resizedTextbox {width: 100px; height: 20px}

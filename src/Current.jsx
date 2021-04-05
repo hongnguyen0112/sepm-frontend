@@ -8,7 +8,7 @@ const api = {
     base: "https://api.openweathermap.org/data/2.5/"
 }
 
-function Weather() {
+function Current() {
     //Create hook for weather and setWeather function
     const [weather, setWeather] = useState({});
     //Create hook for location and setLocation function
@@ -23,12 +23,13 @@ function Weather() {
     //Search event (fetching the weather data from API)
     const search = evt =>{
         //Declare the url as a constant value
-        const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&units=metric&appid=${api.key}`
+        const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely&units=metric&appid=${api.key}`
         //Fetching the API
         fetch(url)
         .then(res=> res.json()) //Format the result to JSON
         .then(json => {
             setWeather(json); //Set data of JSON file to weather
+            console.log(json);
             setLocation(""); //Set location to null
             setCoordinates({
               lat:null,
@@ -49,37 +50,42 @@ function Weather() {
         setCoordinates(latLng); //Set latitude and longtitude
     };
 
-    
     return (
         <div>
-            <PlacesAutocomplete
-                value={location}
-                onChange={setLocation}
-                onSelect={handleSelect}>
-                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                <div>
-                    <input {...getInputProps({ placeholder: "Search for location..." })}/> 
-                    <div>
-                        {loading ? <div>...loading</div> : null} 
-                        {suggestions.map(suggestion => {
-                        const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
-                        return (
-                            <div {...getSuggestionItemProps(suggestion, { style })}>
-                            {suggestion.description}
-                        </div>);
-                    })}
+            <div class="input-group mb-3 justify-content-center">
+                <PlacesAutocomplete value={location} onChange={setLocation}  onSelect={handleSelect}>
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div>
+                            <div>
+                                <input style={{width:'1000px'}} {...getInputProps({ placeholder: "Search for location..." })} className="form-control"/> 
+                            </div>
+                            <div>
+                                {loading ? <div>...loading</div> : null} 
+                                {suggestions.map(suggestion => {
+                                const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
+                                return (
+                                    <div {...getSuggestionItemProps(suggestion, { style })}>
+                                        {suggestion.description}
+                                    </div>);
+                                })}
+                            </div>
+                        </div>)}
+                    </PlacesAutocomplete>
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="button" id="button-addon2" onClick = {search}>
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
-            </div>)}
-            </PlacesAutocomplete>
-            
-            <button onClick = {search}>Search</button>
+            </div>
+            <h1>This is current page</h1>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div>
                 <h2>Weather Info</h2>
                 <div>Your location: {address}</div>
                 {weather.current.temp}
             </div>):('')}
+            
         </div>
     );
 }
-export default Weather;
+export default Current;
