@@ -64,7 +64,7 @@ function Current() {
                                 const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
                                 return (
                                     <div >
-                                        <div {...getSuggestionItemProps(suggestion, { style })} className="recommendations">
+                                        <div {...getSuggestionItemProps(suggestion, { style })} className="recommendations" style={{width: '1000px', backgroundColor: 'white'}}>
                                             {suggestion.description}
                                         </div> 
                                     </div>);

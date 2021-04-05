@@ -64,7 +64,7 @@ function Daily() {
                                 {suggestions.map(suggestion => {
                                 const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
                                 return (
-                                    <div {...getSuggestionItemProps(suggestion, { style })}>
+                                    <div {...getSuggestionItemProps(suggestion, { style })} className = "recommdations" style={{width: '1000px', backgroundColor: 'white'}}>
                                         {suggestion.description}
                                     </div>);
                                 })}
