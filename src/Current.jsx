@@ -64,8 +64,10 @@ function Current() {
                                 {suggestions.map(suggestion => {
                                 const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
                                 return (
-                                    <div {...getSuggestionItemProps(suggestion, { style })}>
-                                        {suggestion.description}
+                                    <div >
+                                        <div {...getSuggestionItemProps(suggestion, { style })} className="recommendations">
+                                            {suggestion.description}
+                                        </div> 
                                     </div>);
                                 })}
                             </div>

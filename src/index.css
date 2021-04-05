@@ -105,4 +105,9 @@ main{
   padding-right:30px;
 }
 
+div .recommendations{
+  outline: 10px;
+  display: block;
+}
+
 .resizedTextbox {width: 100px; height: 20px}

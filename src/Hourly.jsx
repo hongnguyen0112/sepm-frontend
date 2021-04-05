@@ -14,7 +14,9 @@ function Hourly() {
     //Create hook for location and setLocation function
     const [location, setLocation] = useState("");
     //Create hook for coordinates which combines 2 elements (lat and lng values) and setCoordinates function
-    const [coordinates, setCoordinates] = useState({
+    const [coordinates, setCoordinates] = 
+    
+    useState({
         lat: null,
         lng: null
     });
@@ -32,7 +34,7 @@ function Hourly() {
             console.log(json);
             setLocation(""); //Set location to null
             setCoordinates({
-              lat:null,
+              lat: null,
               lng: null
             })
         });
@@ -62,9 +64,9 @@ function Hourly() {
                             <div>
                                 {loading ? <div>...loading</div> : null} 
                                 {suggestions.map(suggestion => {
-                                const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
+                                const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff"};
                                 return (
-                                    <div {...getSuggestionItemProps(suggestion, { style })}>
+                                    <div {...getSuggestionItemProps(suggestion, { style })} className = "recommdations">
                                         {suggestion.description}
                                     </div>);
                                 })}
