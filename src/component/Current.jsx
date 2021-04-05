@@ -31,7 +31,7 @@ function Current() {
             console.log(json);
             setLocation(""); //Set location to null
             setCoordinates({
-              lat:null,
+              lat: null,
               lng: null
             })
         });
@@ -79,12 +79,20 @@ function Current() {
                 </div>
             </div>
 
-            <h1>This is current page</h1>
+            
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
-            <div>
-                <h2>Weather Info</h2>
-                <div>Your location: {address}</div>
-                {weather.current.temp}
+            <div className="container">
+                <div className="row">
+                    <div className = "col-md-6">
+                        {address} <br/>
+                        <h1>{weather.current.temp}°C</h1>
+                        
+                       
+                    </div>
+                    <div className = "col-md-6">
+                       Today's recommended outfits
+                    </div>
+                </div>
             </div>):('')}
             
         </div>
