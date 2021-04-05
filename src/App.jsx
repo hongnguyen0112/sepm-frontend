@@ -4,6 +4,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import Navbar from './component/Navbar'
 import Current from "./component/Current";
+import './index.css'
 
 export default class App extends React.Component{
   constructor(props) {

@@ -1,7 +1,6 @@
 //Import libraries
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
-
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -59,7 +58,7 @@ function Current() {
                             <div>
                                 <input style={{width:'1000px'}} {...getInputProps({ placeholder: "Search for location..." })} className="form-control"/> 
                             </div>
-                            <div>
+                            <div className = "autocomplete-dropdown-container">
                                 {loading ? <div>...loading</div> : null} 
                                 {suggestions.map(suggestion => {
                                 const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
@@ -79,6 +78,7 @@ function Current() {
                     </button>
                 </div>
             </div>
+
             <h1>This is current page</h1>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div>

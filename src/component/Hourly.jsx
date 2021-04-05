@@ -61,7 +61,7 @@ function Hourly() {
                             <div>
                                 <input style={{width:'1000px'}} {...getInputProps({ placeholder: "Search for location..." })} className="form-control"/> 
                             </div>
-                            <div>
+                            <div className = "autocomplete-dropdown-container">
                                 {loading ? <div>...loading</div> : null} 
                                 {suggestions.map(suggestion => {
                                 const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff"};
