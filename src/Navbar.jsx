@@ -5,12 +5,8 @@ function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-primary">
             <div className="container-fluid">
-                <Link to='/' className="navbar-brand">
-                    <img
-					    src='./logo2.png'
-					    alt="logo"
-					    style={{ height: 40 + 'px' }}
-				    />
+                <Link to='/' className="navbar-brand" style={{fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px'}}>
+                    WOR
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-2" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
