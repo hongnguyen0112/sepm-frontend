@@ -1,9 +1,9 @@
-import Hourly from './Hourly';
-import Daily from './Daily';
+import Hourly from './component/Hourly';
+import Daily from './component/Daily';
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
-import Navbar from './Navbar'
-import Current from "./Current";
+import Navbar from './component/Navbar'
+import Current from "./component/Current";
 
 export default class App extends React.Component{
   constructor(props) {
