@@ -74,6 +74,7 @@ function Current() {
                     </PlacesAutocomplete>
                 <div class="input-group-append">
                     <button class="btn btn-success" type="button" id="button-addon2" onClick = {search}>
+                    
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -86,8 +87,8 @@ function Current() {
                     <div className = "col-md-6">
                         {address} <br/>
                         <h1>{weather.current.temp}°C</h1>
-                        
-                       
+                        <img src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} alt=""/>
+                        {console.log(`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`)}
                     </div>
                     <div className = "col-md-6">
                        Today's recommended outfits
