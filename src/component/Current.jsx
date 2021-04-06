@@ -47,6 +47,7 @@ function Current() {
         setLocation(value); //Set the location to the value
         setAddress(value);
         setCoordinates(latLng); //Set latitude and longtitude
+        search();
     };
 
     return (
@@ -74,7 +75,6 @@ function Current() {
                     </PlacesAutocomplete>
                 <div class="input-group-append">
                     <button class="btn btn-success" type="button" id="button-addon2" onClick = {search}>
-                    
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -85,17 +85,24 @@ function Current() {
             <div className="container">
                 <div className="row">
                     <div className = "col-md-6">
-                        {address} <br/>
-                        <h1>{weather.current.temp}°C</h1>
-                        <img src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} alt=""/>
-                        {console.log(`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`)}
+                        <h1>{address}</h1>
+                         <br/>
+                        <div>
+                            <div className = "row">
+                                <div className = "col-md-3">
+                                    <h2>{weather.current.temp}°C</h2>
+                                </div>
+                                <div className = "col-md-3">
+                                    <img src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} alt=""/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className = "col-md-6">
                        Today's recommended outfits
                     </div>
                 </div>
             </div>):('')}
-            
         </div>
     );
 }
