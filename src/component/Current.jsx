@@ -47,7 +47,7 @@ function Current() {
         setLocation(value); //Set the location to the value
         setAddress(value);
         setCoordinates(latLng); //Set latitude and longtitude
-        search();
+        
     };
 
     return (
