@@ -19,6 +19,24 @@ function Current() {
     });
     const [address, setAddress] = useState("");
 
+    const fetchData = () =>{
+        fetch(`${api.base}onecall?lat=21.028511&lon=105.804817&exclude=minutely&units=metric&appid=${api.key}`)
+            .then(res => res.json())
+            .then(json => {
+                setWeather(json); //Set data of JSON file to weather
+                console.log(json);
+                setLocation(""); //Set location to null
+                setCoordinates({
+                  lat: null,
+                  lng: null
+                })
+            });
+    }
+
+    const componentDidMount = () =>  {
+        fetchData();
+    }
+
     //Search event (fetching the weather data from API)
     const search = evt =>{
         //Declare the url as a constant value
@@ -52,6 +70,7 @@ function Current() {
 
     return (
         <div>
+            
             <div class="input-group mb-3 justify-content-center">
                 <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
@@ -79,8 +98,6 @@ function Current() {
                     </button>
                 </div>
             </div>
-
-            
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div className="container">
                 <div className="row">
@@ -102,7 +119,7 @@ function Current() {
                        Today's recommended outfits
                     </div>
                 </div>
-            </div>):('')}
+            </div>):<div>{componentDidMount()}</div>}
         </div>
     );
 }
