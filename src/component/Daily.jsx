@@ -1,7 +1,7 @@
 //Import libraries
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
-
+import {Button, Modal} from 'react-bootstrap'
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -19,7 +19,9 @@ function Daily() {
         lng: null
     });
     const [address, setAddress] = useState("");
-
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     //Search event (fetching the weather data from API)
     const search = evt =>{
         //Declare the url as a constant value
@@ -103,9 +105,30 @@ function Daily() {
                         There is no alert found
                     </div>
                 </div>):(
-                    <div>
-                        There is a weather alert
-                    </div>)}
+                    <div className="container">
+                    <Button variant="primary" onClick={handleShow}>View Details</Button>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>National Alerts</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Location: {address} <br/>
+                            Alert: {weather.alerts.map(alert=>(
+                                <li>
+                                <div>
+                                    Sender Name: {alert.sender_name} <br/>
+                                    Start: {alert.start} <br/>
+                                    End: {alert.end} <br/>
+                                    Description: {alert.description} <br/>
+                                </div>
+                                </li>
+                            ))}
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="danger" onClick={handleClose}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>)}
                 <h2>Weather Info</h2>
                 <div>Your location: {address}</div>
                 {weather.current.temp}

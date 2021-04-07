@@ -1,7 +1,7 @@
 //Import libraries
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
-
+import {Button, Modal} from 'react-bootstrap'
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -18,8 +18,10 @@ function Current() {
         lat: null,
         lng: null
     });
+    const [show, setShow] = useState(false);
     const [address, setAddress] = useState("");
-
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const fetchData = () =>{
         fetch(`${api.base}onecall?lat=21.028511&lon=105.804817&exclude=minutely&units=metric&appid=${api.key}`)
             .then(res => res.json())
@@ -70,7 +72,7 @@ function Current() {
 
     return (
         <div>
-            <div class="input-group mb-3 justify-content-center">
+            <div className="input-group mb-3 justify-content-center">
                 <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                         <div>
@@ -94,9 +96,9 @@ function Current() {
                 <div>
                      
                 </div>
-                <div class="input-group-append">
-                    <button class="btn btn-success" type="button" id="button-addon2" onClick = {search}>
-                        <i class="fa fa-search"></i>
+                <div className="input-group-append">
+                    <button className="btn btn-success" type="button" id="button-addon2" onClick = {search}>
+                        <i className="fa fa-search"></i>
                     </button>
                 </div>
             </div>
@@ -108,9 +110,31 @@ function Current() {
                         There is no alert found
                     </div>
                 </div>):(
-                    <div className = "container-fluid">
-                        There is a weather alert
-                    </div>)}
+                    <div className="container">
+                        <Button variant="primary" onClick={handleShow}>View Details</Button>
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>National Alerts</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                Location: {address} <br/>
+                                Alert: {weather.alerts.map(alert=>(
+                                    <li>
+                                    <div>
+                                        Sender Name: {alert.sender_name} <br/>
+                                        Start: {alert.start} <br/>
+                                        End: {alert.end} <br/>
+                                        Description: {alert.description} <br/>
+                                    </div>
+                                    </li>
+                                ))}
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="danger" onClick={handleClose}>Close</Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                    )}
                 <div className="row">
                     <div className = "col-md-6">
                         <h1>{address}</h1>
