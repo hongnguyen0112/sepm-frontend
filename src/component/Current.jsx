@@ -1,7 +1,7 @@
 //Import libraries
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
-import {Button, Modal} from 'react-bootstrap'
+import {Button, Modal, Card} from 'react-bootstrap'
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -105,13 +105,15 @@ function Current() {
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div className="web-container">
                 {!weather.alerts? (
-                    <div className = "container-fluid">
-                        <div className = "no-alerts-box">
-                            There is no alert found
-                        </div>
-                    </div>):(
+                    ''):(
                     <div className="container">
-                        <Button variant="primary" onClick={handleShow}>View Details</Button>
+                        <Card className="text-center" style={{color: "white",width:"400px", marginLeft:"auto", marginRight: "auto", backgroundColor:"#cf615f"}}>
+                            <Card.Body>
+                                <Card.Title>Weather Alert</Card.Title>
+                                <Card.Text>{weather.alerts.map(alert=>(
+                                    <div>{alert.event}</div>
+                                ))}</Card.Text>
+                               <Button variant="primary" onClick={handleShow}>Read More</Button>
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title>National Alerts</Modal.Title>
@@ -133,8 +135,14 @@ function Current() {
                                 <Button variant="danger" onClick={handleClose}>Close</Button>
                             </Modal.Footer>
                         </Modal>
+                            </Card.Body>
+                            
+                        </Card>
+                        
                     </div>
                 )}
+                <br/>
+
                 <div className = "row">
                     <div className = "col">
                         <div className = "weather-box">
