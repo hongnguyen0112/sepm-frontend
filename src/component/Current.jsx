@@ -1,6 +1,7 @@
 //Import libraries
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
+
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -65,12 +66,10 @@ function Current() {
         setLocation(value); //Set the location to the value
         setAddress(value);
         setCoordinates(latLng); //Set latitude and longtitude
-        
     };
 
     return (
         <div>
-            
             <div class="input-group mb-3 justify-content-center">
                 <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (

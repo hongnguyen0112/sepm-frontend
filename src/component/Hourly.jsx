@@ -22,6 +22,23 @@ function Hourly() {
     });
     const [address, setAddress] = useState("");
 
+    const fetchData = () =>{
+        fetch(`${api.base}onecall?lat=21.028511&lon=105.804817&exclude=minutely&units=metric&appid=${api.key}`)
+            .then(res => res.json())
+            .then(json => {
+                setWeather(json); //Set data of JSON file to weather
+                console.log(json);
+                setLocation(""); //Set location to null
+                setCoordinates({
+                  lat: null,
+                  lng: null
+                })
+            });
+    }
+
+    const componentDidMount = () =>  {
+        fetchData();
+    }
     //Search event (fetching the weather data from API)
     const search = evt =>{
         //Declare the url as a constant value
@@ -85,7 +102,7 @@ function Hourly() {
                 <h2>Weather Info</h2>
                 <div>Your location: {address}</div>
                 {weather.current.temp}
-            </div>):('')}
+            </div>):(<div>{componentDidMount()}</div>)}
             
         </div>
     );
