@@ -90,15 +90,21 @@ function Hourly() {
                             </div>
                         </div>)}
                     </PlacesAutocomplete>
+               
                 <div class="input-group-append">
                     <button class="btn btn-success" type="button" id="button-addon2" onClick = {search}>
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
             </div>
+            
             <h1>This is hourly page</h1>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div>
+                {!weather.alerts? ('No alerts'):(
+                    <div>
+                        There is a weather alert
+                    </div>)}
                 <h2>Weather Info</h2>
                 <div>Your location: {address}</div>
                 {weather.current.temp}

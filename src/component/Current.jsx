@@ -91,6 +91,9 @@ function Current() {
                             </div>
                         </div>)}
                     </PlacesAutocomplete>
+                <div>
+                     
+                </div>
                 <div class="input-group-append">
                     <button class="btn btn-success" type="button" id="button-addon2" onClick = {search}>
                         <i class="fa fa-search"></i>
@@ -99,6 +102,10 @@ function Current() {
             </div>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div className="container">
+                {!weather.alerts? ('No alerts'):(
+                    <div>
+                        There is a weather alert
+                    </div>)}
                 <div className="row">
                     <div className = "col-md-6">
                         <h1>{address}</h1>
