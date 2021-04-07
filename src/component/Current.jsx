@@ -103,13 +103,13 @@ function Current() {
                 </div>
             </div>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
-            <div className="container">
+            <div className="web-container">
                 {!weather.alerts? (
-                <div className = "container-fluid">
-                    <div className = "no-alerts-box">
-                        There is no alert found
-                    </div>
-                </div>):(
+                    <div className = "container-fluid">
+                        <div className = "no-alerts-box">
+                            There is no alert found
+                        </div>
+                    </div>):(
                     <div className="container">
                         <Button variant="primary" onClick={handleShow}>View Details</Button>
                         <Modal show={show} onHide={handleClose}>
@@ -134,10 +134,12 @@ function Current() {
                             </Modal.Footer>
                         </Modal>
                     </div>
-                    )}
-                <div className="row">
-                    <div className = "col-md-6">
-                        <h1>{address}</h1>
+                )}
+                <div className = "row">
+                    <div className = "col">
+                        <div className = "weather-box">
+                            <div className = "row">
+                            <h1>{address}</h1>
                          <br/>
                         <div>
                             <div className = "row">
@@ -145,13 +147,28 @@ function Current() {
                                     <h2>{weather.current.temp}°C</h2>
                                 </div>
                                 <div className = "col-md-3">
-                                    <img src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} alt=""/>
+                                    <img style = {{height:"150px", width: "150px"} } src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} alt=""/>
                                 </div>
                             </div>
                         </div>
+                    
+                   
+                            </div>
+                        </div>
                     </div>
-                    <div className = "col-md-6">
-                       Today's recommended outfits
+
+                    <div className = "col">
+                        <div className = "outfit-box">
+                            <h1>Outfit</h1>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div className = "row">
+                    <div className = "detail-box">
+                        <h1>Details</h1>
                     </div>
                 </div>
             </div>):<div>{componentDidMount()}</div>}

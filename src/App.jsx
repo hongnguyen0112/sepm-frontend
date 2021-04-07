@@ -24,15 +24,18 @@ export default class App extends React.Component{
   
   render(){
       return(
-        <Router>
-          <Navbar/>
-          <br/>
-          <Switch>
-            <Route exact path="/" component={Current} />
-            <Route exact path="/hourly" component={Hourly} />
-            <Route exact path="/daily" component={Daily} />
-          </Switch>
-        </Router>
+        <div className = "web">
+          <Router>
+            <Navbar/>
+            <br/>
+            <Switch>
+              <Route exact path="/" component={Current} />
+              <Route exact path="/hourly" component={Hourly} />
+              <Route exact path="/daily" component={Daily} />
+            </Switch>
+          </Router>
+        </div>
+        
       )
   }
 }
