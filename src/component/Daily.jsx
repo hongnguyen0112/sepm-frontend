@@ -98,7 +98,11 @@ function Daily() {
             <h1>This is daily page</h1>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div>
-                {!weather.alerts? ('No alerts'):(
+                {!weather.alerts? (<div className = "container-fluid">
+                    <div className = "no-alerts-box">
+                        There is no alert found
+                    </div>
+                </div>):(
                     <div>
                         There is a weather alert
                     </div>)}

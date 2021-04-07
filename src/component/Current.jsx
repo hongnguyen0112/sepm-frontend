@@ -102,8 +102,13 @@ function Current() {
             </div>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div className="container">
-                {!weather.alerts? ('No alerts'):(
-                    <div>
+                {!weather.alerts? (
+                <div className = "container-fluid">
+                    <div className = "no-alerts-box">
+                        There is no alert found
+                    </div>
+                </div>):(
+                    <div className = "container-fluid">
                         There is a weather alert
                     </div>)}
                 <div className="row">

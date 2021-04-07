@@ -122,3 +122,13 @@ div .recommendations{
   z-index: 1000;
   border-radius: 0 0 2px 2px;
 }
+
+.no-alerts-box{
+  background-color: aquamarine;
+  text-align: center;
+  border-radius: 0 0 4px 4px;
+  width: 200px;
+  margin: 0 auto;
+  height: 100px;
+  padding-top: 35px;
+}
