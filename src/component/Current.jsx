@@ -1,7 +1,7 @@
 //Import libraries
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
-import {Button, Modal, Card} from 'react-bootstrap'
+import {Button, Modal, Card, Row, Col} from 'react-bootstrap'
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -104,6 +104,7 @@ function Current() {
             </div>
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div className="web-container">
+                {/* Weather alerts */}
                 {!weather.alerts? (
                     ''):(
                     <div className="container">
@@ -142,37 +143,34 @@ function Current() {
                     </div>
                 )}
                 <br/>
-
-                <div className = "row">
-                    <div className = "col">
+                
+                {/* Main report container */}
+                <Row>
+                    <Col>
                         <div className = "weather-box">
-                            <div className = "row">
-                            <h1>{address}</h1>
-                         <br/>
-                        <div>
-                            <div className = "row">
-                                <div className = "col-md-3">
+                            <Row>
+                                <h1>{address}</h1>
+                                <br/>
+                            </Row>
+                            <Row>
+                                <Col>
                                     <h2>{weather.current.temp}°C</h2>
-                                </div>
-                                <div className = "col-md-3">
-                                    <img style = {{height:"150px", width: "150px"} } src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} alt=""/>
-                                </div>
-                            </div>
+                                </Col>
+                                <Col>
+                                    <img style = {{height:"150px", width: "150px"} } 
+                                    src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} 
+                                    alt=""/>
+                                </Col>
+                            </Row>
                         </div>
-                    
-                   
-                            </div>
-                        </div>
-                    </div>
+                    </Col>
 
                     <div className = "col">
                         <div className = "outfit-box">
                             <h1>Outfit</h1>
                         </div>
                     </div>
-                    
-
-                </div>
+                </Row>
                 
                 <div className = "row">
                     <div className = "detail-box">
