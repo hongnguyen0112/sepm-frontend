@@ -19,11 +19,11 @@ function Current() {
         lng: null
     });
     const [show, setShow] = useState(false);
-    const [address, setAddress] = useState("");
+    const [address, setAddress] = useState("Ho Chi Minh City, Vietnam");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const fetchData = () =>{
-        fetch(`${api.base}onecall?lat=21.028511&lon=105.804817&exclude=minutely&units=metric&appid=${api.key}`)
+        fetch(`${api.base}onecall?lat=10.8231&lon=106.6297&exclude=minutely,hourly,daily&units=metric&appid=${api.key}`)
             .then(res => res.json())
             .then(json => {
                 setWeather(json); //Set data of JSON file to weather
@@ -43,7 +43,7 @@ function Current() {
     //Search event (fetching the weather data from API)
     const search = evt =>{
         //Declare the url as a constant value
-        const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely&units=metric&appid=${api.key}`
+        const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely,hourly,daily&units=metric&appid=${api.key}`
         //Fetching the API
         fetch(url)
         .then(res=> res.json()) //Format the result to JSON
@@ -59,7 +59,6 @@ function Current() {
         //Test the URL
         console.log(url) 
     }
-    
 
     //async/await function to get the data from Google Maps API
     const handleSelect = async value => {
@@ -69,6 +68,7 @@ function Current() {
         setAddress(value);
         setCoordinates(latLng); //Set latitude and longtitude
     };
+    
 
     return (
         <div>
@@ -152,11 +152,15 @@ function Current() {
                                 <h1>{address}</h1>
                                 <br/>
                             </Row>
-                            <Row>
+                            <Row className = "details">
                                 <Col>
-                                    <h2>{weather.current.temp}°C</h2>
+                                    <h2 className = "temp">{weather.current.temp}°C</h2>
+                                    <p>Feels like: {weather.current.feels_like}°C</p>
+                                    <p>Humidity: {weather.current.humidity}%</p>
+                                    <p>UV Index: {weather.current.uvi}</p>
+                                    <p>Updated: {weather.current.dt}</p>
                                 </Col>
-                                <Col>
+                                <Col style = {{textAlign: "right", verticalAlign: "middle", height: "100%"}}>
                                     <img style = {{height:"150px", width: "150px"} } 
                                     src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} 
                                     alt=""/>
