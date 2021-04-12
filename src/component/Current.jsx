@@ -154,8 +154,8 @@ function Current() {
                             </Row>
                             <Row className = "details">
                                 <Col>
-                                    <h2 className = "temp">{weather.current.temp}°C</h2>
-                                    <p>Feels like: {weather.current.feels_like}°C</p>
+                                    <h2 className = "temp">{weather.current.temp.toFixed(0)}°C</h2>
+                                    <p>Feels like: {weather.current.feels_like.toFixed(0)}°C</p>
                                     <p>Humidity: {weather.current.humidity}%</p>
                                     <p>UV Index: {weather.current.uvi}</p>
                                     <p>Updated: {weather.current.dt}</p>
@@ -171,16 +171,29 @@ function Current() {
 
                     <div className = "col">
                         <div className = "outfit-box">
-                            <h1>Outfit</h1>
+                            <h2>Outfit</h2>
                         </div>
                     </div>
                 </Row>
                 
-                <div className = "row">
+                <Row>
                     <div className = "detail-box">
-                        <h1>Details</h1>
+                        <h2>Details</h2>
+                        <br/>
+                        <Row>
+                            <Col>
+                                <p>Wind: {weather.current.wind_speed.toFixed(0) * 3.6} km/h</p>
+                                <p>Wind Gusts: {weather.current.gust * 3.6} km/h</p>
+                                <p>Dew Point: {weather.current.dew_point.toFixed(0)}°C</p>
+                            </Col>
+                            <Col>
+                                <p>Pressure: {weather.current.pressure} hPa</p>
+                                <p>Cloud Cover: {weather.current.clouds}%</p>
+                                <p>Visibility: {weather.current.visibility/1000} km</p>
+                            </Col>
+                        </Row>
                     </div>
-                </div>
+                </Row>
             </div>):<div>{componentDidMount()}</div>}
         </div>
     );

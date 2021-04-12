@@ -14,9 +14,11 @@ body{
   background-position: bottom;
   transition: 0.4 ease-out;
 }
+
 .app.rain{
   background-image: url('./assesst/rainny.jpg');
 }
+
 main{
   min-height: 100vh;
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.75));
@@ -102,7 +104,7 @@ main{
   background-color: lightcyan;
   border-radius: 20px;
   padding: 2%;
-  min-height: 373px;
+  min-height: 100%;
 }
 
 .detail-box {
@@ -115,6 +117,9 @@ main{
   margin-top: 20px;
   margin-bottom: 20px;
   min-height: 373px;
+  line-height: 10px;
+  font-size: large;
+  align-content: center;
 }
 
 .weather-box .temp{
