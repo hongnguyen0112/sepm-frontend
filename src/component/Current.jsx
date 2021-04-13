@@ -68,6 +68,13 @@ function Current() {
         setAddress(value);
         setCoordinates(latLng); //Set latitude and longtitude
     };
+
+    // Convert unix to time
+    const convert = (unix) => {
+        const date = new Date(unix * 1000);
+        const time = date.toUTCString()
+        return time;
+    }
     
 
     return (
@@ -125,8 +132,8 @@ function Current() {
                                     <li>
                                     <div>
                                         Sender Name: {alert.sender_name} <br/>
-                                        Start: {alert.start} <br/>
-                                        End: {alert.end} <br/>
+                                        Start: {convert(alert.start)} <br/>
+                                        End: {convert(alert.end)} <br/>
                                         Description: {alert.description} <br/>
                                     </div>
                                     </li>
@@ -158,13 +165,15 @@ function Current() {
                                     <p>Feels like: {weather.current.feels_like.toFixed(0)}°C</p>
                                     <p>Humidity: {weather.current.humidity}%</p>
                                     <p>UV Index: {weather.current.uvi}</p>
-                                    <p>Updated: {weather.current.dt}</p>
                                 </Col>
                                 <Col style = {{textAlign: "right", verticalAlign: "middle", height: "100%"}}>
                                     <img style = {{height:"150px", width: "150px"} } 
                                     src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} 
                                     alt=""/>
                                 </Col>
+                            </Row>
+                            <Row style = {{paddingLeft: "0.5%"}}>
+                                <p>Updated: {convert(weather.current.dt)}</p>
                             </Row>
                         </div>
                     </Col>
@@ -183,13 +192,19 @@ function Current() {
                         <Row>
                             <Col>
                                 <p>Wind: {weather.current.wind_speed.toFixed(0) * 3.6} km/h</p>
+                                <hr/>
                                 <p>Wind Gusts: {weather.current.gust * 3.6} km/h</p>
+                                <hr/>
                                 <p>Dew Point: {weather.current.dew_point.toFixed(0)}°C</p>
+                                <hr/>
                             </Col>
                             <Col>
                                 <p>Pressure: {weather.current.pressure} hPa</p>
+                                <hr/>
                                 <p>Cloud Cover: {weather.current.clouds}%</p>
+                                <hr/>
                                 <p>Visibility: {weather.current.visibility/1000} km</p>
+                                <hr/>
                             </Col>
                         </Row>
                     </div>
