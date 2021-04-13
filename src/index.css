@@ -169,3 +169,25 @@ div .recommendations{
   height: 100px;
   padding-top: 35px;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.info {
+  font-family: sans-serif;
+  color: #606367;
+  font-size: 12px;
+  font-weight: lighter;
+  margin: 20px 0;
+}
+.info span:first-child {
+  margin-right: 10px;
+}
+.info span:last-child::before {
+  content: '–';
+  margin: 0 4px;
+}

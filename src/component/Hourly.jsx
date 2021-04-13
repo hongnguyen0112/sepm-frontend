@@ -1,7 +1,8 @@
 //Import libraries
+import Slider from './Slider'
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
-import {Button, Modal, Card} from 'react-bootstrap'
+import {Button, Modal, Card, Row, Col} from 'react-bootstrap'
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -70,6 +71,11 @@ function Hourly() {
         setAddress(value);
         setCoordinates(latLng); //Set latitude and longtitude
     };
+    const convert = (unix) => {
+        const date = new Date(unix * 1000);
+        const time = date.toUTCString()
+        return time;
+    }
 
     return (
         <div>
@@ -139,6 +145,32 @@ function Hourly() {
                     
                 </div>)}
                 <h2>Weather Info</h2>
+
+                <Row>
+                    
+
+                    <div className = "col">
+                        <div className = "outfit-box">
+                            <h2>Recommendation</h2>
+                        </div>
+                    </div>
+                </Row>
+                
+                <Row>
+                    <div className = "detail-box">
+                        <h2>Details</h2>
+                        <br/>
+                        <Row>
+                            
+                                <p>12:00 {weather.current.wind_speed.toFixed(0) * 3.6} km/h</p>
+                                <hr/>
+                                <p>13:00 {weather.current.gust * 3.6} km/h</p>
+                                <hr/>
+                                <p>15:00 {weather.current.dew_point.toFixed(0)}°C</p>
+                                <hr/>                                                        
+                        </Row>
+                    </div>
+                </Row>
                 <div>Your location: {address}</div>
                 {weather.current.temp}
             </div>):(<div>{componentDidMount()}</div>)}
