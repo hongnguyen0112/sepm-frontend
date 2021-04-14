@@ -81,8 +81,9 @@ function Current() {
 
     // Convert unix to time
     const convert = (unix) => {
-        const date = new Date(unix * 1000);
-        const time = date.toUTCString()
+        const date = new Date((unix) * 1000);
+        const utc_time = date.toUTCString()
+        const time = utc_time.slice(-25, -7)
         return time;
     }
     
@@ -183,7 +184,7 @@ function Current() {
                                 </Col>
                             </Row>
                             <Row style = {{paddingLeft: "0.5%"}}>
-                                <p>Updated: {convert(weather.current.dt)}</p>
+                                <p>Updated: {convert(weather.current.dt*1 + weather.timezone_offset*1)}</p>
                             </Row>
                         </div>
                     </Col>
