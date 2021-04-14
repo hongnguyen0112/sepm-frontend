@@ -1,7 +1,7 @@
 //Import libraries
 import React, { useState } from 'react'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { Button, Modal, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
+import { Button, Modal, Card, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
 
 //API set up
 const api = {
@@ -148,32 +148,40 @@ function Daily() {
                         </div>)}
 
                     {/* Card for weather information starts */}
+                    <div className="container">
                     <div>Your location: {address}</div>
-                    {weather.daily.map((mapdaily) => (
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
-                            <Card.Body>
-                                <Card.Title>{convert(mapdaily.dt)}</Card.Title>
-                                <Card.Text>{mapdaily.weather[0].description}</Card.Text>
-                                <Card.Text>
-                                    <Row>Morning: {mapdaily.temp.morn}</Row>
-                                    <Row>Day: {mapdaily.temp.day}</Row>
-                                    <Row>Evening: {mapdaily.temp.eve}</Row>
-                                    <Row>Night: {mapdaily.temp.night}</Row>
-                                </Card.Text>
-                                <Card.Text>
-                                    <Row>Minimum Temperature: {mapdaily.temp.min}</Row>
-                                    <Row>Maximum Temperature: {mapdaily.temp.max}</Row>
-                                </Card.Text>
-                            </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroupItem>Rain: {mapdaily.rain}</ListGroupItem>
-                                <ListGroupItem>Humidity: {mapdaily.humidity}</ListGroupItem>
-                                <ListGroupItem>Wind speed: {mapdaily.wind_speed}</ListGroupItem>
-                            </ListGroup>
-                        </Card>
+                    <Row>
+                    {weather.daily.map((mapdaily, index) => (
+                        <div className='col-sm-3' key ={index}>
+                            
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
+                                    <Card.Body>
+                                        <Card.Title>{convert(mapdaily.dt)}</Card.Title>
+                                        <Card.Text>{mapdaily.weather[0].description}</Card.Text>
+                                            <Card.Text>
+                                                <Row>Morning: {mapdaily.temp.morn}</Row>
+                                                <Row>Day: {mapdaily.temp.day}</Row>
+                                                <Row>Evening: {mapdaily.temp.eve}</Row>
+                                                <Row>Night: {mapdaily.temp.night}</Row>
+                                            </Card.Text>
+                                        <Card.Text>
+                                        <Row>Minimum Temperature: {mapdaily.temp.min}</Row>
+                                        <Row>Maximum Temperature: {mapdaily.temp.max}</Row>
+                                        </Card.Text>
+                                    </Card.Body>
+                                    <ListGroup className="list-group-flush">
+                                        <ListGroupItem>Rain: {mapdaily.rain}</ListGroupItem>
+                                        <ListGroupItem>Humidity: {mapdaily.humidity}</ListGroupItem>
+                                        <ListGroupItem>Wind speed: {mapdaily.wind_speed}</ListGroupItem>
+                                    </ListGroup>
+                                </Card>
+                                <br/>
+                        </div>
                     ))}
+                    </Row>
                     {/* Card for weather information ends */}
+                    </div>
 
                 </div>) : (<div>{componentDidMount()}</div>)}
         </div>
