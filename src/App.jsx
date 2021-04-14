@@ -4,6 +4,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import Navbar from './component/Navbar'
 import Current from "./component/Current";
+import Footer from './component/Footer'
 import './index.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
               <Route exact path="/hourly" component={Hourly} />
               <Route exact path="/daily" component={Daily} />
             </Switch>
+            <Footer/>
           </Router>
         </div>
     )
