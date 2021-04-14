@@ -1,7 +1,8 @@
 //Import libraries
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
 import {Button, Modal, Card, Row, Col} from 'react-bootstrap'
+import axios from 'axios';
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -18,27 +19,36 @@ function Current() {
         lat: null,
         lng: null
     });
+    const[details, setDetails] = useState(null);
+    useEffect(async () => {
+        const result = await axios(
+          'https://geolocation-db.com/json/99486020-9be7-11eb-9632-ff1f2197d423',
+        );
+        setDetails(result.data);
+        setCoordinates({
+          lat: result.data.latitude,
+          lng: result.data.longitude
+        })
+      }, []);
+
+
     const [show, setShow] = useState(false);
     const [address, setAddress] = useState("Ho Chi Minh City, Vietnam");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const fetchData = () =>{
-        fetch(`${api.base}onecall?lat=10.8231&lon=106.6297&exclude=minutely,hourly,daily&units=metric&appid=${api.key}`)
-            .then(res => res.json())
-            .then(json => {
-                setWeather(json); //Set data of JSON file to weather
-                console.log(json);
-                setLocation(""); //Set location to null
-                setCoordinates({
-                  lat: null,
-                  lng: null
-                })
-            });
-    }
 
-    const componentDidMount = () =>  {
-        fetchData();
-    }
+    useEffect(async () => {
+        const result = await axios(
+            `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely,hourly,daily&units=metric&appid=${api.key}`,
+        );
+        setWeather(result.data);
+        setCoordinates({
+          lat: result.data.latitude,
+          lng: result.data.longitude
+        })
+        setLocation(""); //Set location to null
+      }, []);
+    
 
     //Search event (fetching the weather data from API)
     const search = evt =>{
@@ -209,7 +219,7 @@ function Current() {
                         </Row>
                     </div>
                 </Row>
-            </div>):<div>{componentDidMount()}</div>}
+            </div>):('')}
         </div>
     );
 }
