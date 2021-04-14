@@ -1,7 +1,7 @@
 //Import libraries
 import React, { useState } from 'react'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { Button, Modal, Card, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
+import { Button, Modal, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
 
 //API set up
 const api = {
@@ -152,9 +152,9 @@ function Daily() {
                     <div>Your location: {address}</div>
                     <Row>
                     {weather.daily.map((mapdaily, index) => (
-                        <div className='col-sm-3' key ={index}>
+                        <div className='col-xl-3' key ={index}>
                             
-                                <Card style={{ width: '18rem' }}>
+                                <Card style={{ width: '16rem' }}>
                                     <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
                                     <Card.Body>
                                         <Card.Title>{convert(mapdaily.dt)}</Card.Title>
