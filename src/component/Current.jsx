@@ -19,7 +19,7 @@ const Current = ({weather, address}) => {
 
     return (
         <div>
-            {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
+            
             <div className="web-container">
                 {/* Weather alerts */}
                 {!weather.alerts? (
@@ -117,7 +117,7 @@ const Current = ({weather, address}) => {
                         </Row>
                     </div>
                 </Row>
-            </div>):('')}
+                </div>
         </div>
     );
 }

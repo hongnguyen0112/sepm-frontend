@@ -19,7 +19,7 @@ const Daily = ({weather, address}) => {
 
     return (
         <div>
-            {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
+            
                 <div>
                     {!weather.alerts ? ('') : (
                         <div className="container">
@@ -91,7 +91,7 @@ const Daily = ({weather, address}) => {
                     {/* Card for weather information ends */}
                     </div>
 
-                </div>) : ('')}
+                    </div>
         </div>
     );
 }

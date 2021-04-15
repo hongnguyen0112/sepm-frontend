@@ -11,7 +11,7 @@ function Hourly({weather, address}) {
         <div>
             <h1>This is hourly page</h1>
             {address}
-            {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
+           
             <div>
                 {!weather.alerts? (''):(
                     <div className="container">
@@ -51,8 +51,8 @@ function Hourly({weather, address}) {
                 <h2>Weather Info</h2>
                 <div>Your location: {address}</div>
                 {weather.current.temp}
-            </div>):('')}
             
+                </div>
         </div>
     );
 }
