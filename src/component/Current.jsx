@@ -37,17 +37,30 @@ const Current = ({ weather, address }) => {
                                         <Modal.Title>National Alerts</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        Location: {address} <br />
-                                Alert: {weather.alerts.map(alert => (
-                                        <li>
-                                            <div>
-                                                Sender Name: {alert.sender_name} <br />
-                                        Start: {convert(alert.start)} <br />
-                                        End: {convert(alert.end)} <br />
-                                        Description: {alert.description} <br />
+                                        {weather.alerts.map((a, index) => (
+                                            <div key={index}>
+                                                <div role="tabpanel">
+                                                    <ul class="nav nav-tabs" role="tablist">
+                                                        <li role="presentation" class="active"><a href={a.event} aria-controls="uploadTab" role="tab" data-toggle="tab">{a.event}</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div role="tabpanel" class="tab-pane active" id={a.event}>
+                                                            Location: {address} <br />
+                                                            Alert: {weather.alerts.map(alert => (
+                                                            
+                                                                <div>
+                                                                    Sender Name: {alert.sender_name} <br />
+                                                                    Start: {convert(alert.start)} <br />
+                                                                    End: {convert(alert.end)} <br />
+                                                                    Description: {alert.description} <br />
+                                                                </div>
+                                                        ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </li>
-                                    ))}
+                                        ))}
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button variant="danger" onClick={handleClose}>Close</Button>
