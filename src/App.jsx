@@ -35,12 +35,7 @@ function App() {
         .then(res => res.json())
         .then(json => {
             setWeather(json); //Set data of JSON file to weather
-            console.log(json);
-            setLocation(""); //Set location to null
-            setCoordinates({
-              lat: null,
-              lng: null
-            })
+            
         });
 }
 
