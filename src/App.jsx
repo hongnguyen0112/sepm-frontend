@@ -7,7 +7,7 @@ import Current from "./component/Current";
 import Footer from './component/Footer'
 import './index.css'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import { Row, Col } from 'react-bootstrap'
+
 
 const api = {
   key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -62,17 +62,19 @@ function App() {
   }
   return (
     <div className="web">
-      <br />
+      
       {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
         <div>
           <Router>
-            <div className="row">
+            <div className="row" style={{backgroundColor: "#439be8"}}>
+            
               <div className="col-sm-1" >
+              <br/>
                 <Link to='/' className="navbar-brand" style={{ marginLeft: '20px', fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px' }}>
                   WOR
             </Link>
               </div>
-              <div className="col-xl-11">
+              <div className="col-xl-11"><br/>
                 <div className="input-group mb-3 justify-content-center">
                   <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
