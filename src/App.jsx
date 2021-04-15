@@ -27,7 +27,6 @@ function App() {
     const results = await geocodeByAddress(value); //Get geocode by address
     const latLng = await getLatLng(results[0]); //Get latitude and longtitude values
     setLocation(value); //Set the location to the value
-    setAddress(value);
     setCoordinates(latLng); //Set latitude and longtitude
   };
   const fetchData = () => {
@@ -56,6 +55,7 @@ function App() {
           lat: null,
           lng: null
         })
+        setAddress(location)
       });
     //Test the URL
     console.log(url)
