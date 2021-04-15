@@ -67,12 +67,12 @@ function App() {
         <div>
           <Router>
             <div className="row">
-              <div className="col-1" style={{paddingRight:'20px'}}>
-                <Link to='/' className="navbar-brand" style={{ fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px' }}>
+              <div className="col-sm-1" >
+                <Link to='/' className="navbar-brand" style={{ marginLeft: '20px', fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px' }}>
                   WOR
             </Link>
               </div>
-              <div className="col-11">
+              <div className="col-xl-11">
                 <div className="input-group mb-3 justify-content-center">
                   <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
