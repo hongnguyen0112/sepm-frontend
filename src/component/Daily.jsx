@@ -37,12 +37,12 @@ const Daily = ({ weather, address }) => {
                                         {weather.alerts.map((a, index) => (
                                             <div key={index}>
                                                 <div role="tabpanel">
-                                                    <ul class="nav nav-tabs" role="tablist">
-                                                        <li role="presentation" class="active"><a href={a.event} aria-controls="uploadTab" role="tab" data-toggle="tab">{a.event}</a>
+                                                    <ul className="nav nav-tabs" role="tablist">
+                                                        <li role="presentation" className="active"><a href={a.event} aria-controls="uploadTab" role="tab" data-toggle="tab">{a.event}</a>
                                                         </li>
                                                     </ul>
-                                                    <div class="tab-content">
-                                                        <div role="tabpanel" class="tab-pane active" id={a.event}>
+                                                    <div className="tab-content">
+                                                        <div role="tabpanel" className="tab-pane active" id={a.event}>
                                                             Location: {address} <br />
                                                             Alert: {weather.alerts.map(alert => (
 
