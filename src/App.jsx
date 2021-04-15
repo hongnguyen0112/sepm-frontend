@@ -42,6 +42,9 @@ function App() {
     fetchData();
   }
   const search = evt => {
+    if(location.trim().length === 0){
+      return;
+    }
     //Declare the url as a constant value
     const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely&units=metric&appid=${api.key}`
     //Fetching the API
@@ -64,9 +67,9 @@ function App() {
     <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
 
       {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
-        <div  style={{ backgroundColor: "#439be8" }}>
+        <div style={{ backgroundColor: "#439be8" }}>
           <Router>
-            <div className = "container-fluid">
+            <div className="container-fluid">
               <div className="row" >
 
                 <div className="col-1" >
@@ -80,8 +83,16 @@ function App() {
                     <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                         <div>
+                          
                           <div>
-                            <input style={{ width: '1000px' }} {...getInputProps({ placeholder: "Search for location..." })} className="form-control" />
+                            
+                            <input
+                              style={{ width: '1000px' }}
+                              {...getInputProps({ placeholder: "Search for location..." })}
+                              className="form-control"
+                              
+                            />
+                            
                           </div>
                           <div className="autocomplete-dropdown-container">
                             {loading ? <div>...loading</div> : null}
@@ -105,7 +116,10 @@ function App() {
                         <i className="fa fa-search"></i>
                       </button>
                     </div>
-                  </div></div>
+                    
+                  </div>
+                  
+                 </div>
 
 
               </div>
