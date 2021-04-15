@@ -8,13 +8,12 @@ const Daily = ({ weather, address }) => {
     const handleShow = () => setShow(true);
 
     // Convert unix to time
+    // Convert unix to time
     const convert = (unix) => {
-        const date = new Date(unix * 1000);
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        const month = months[date.getMonth()];
-        const day = date.getDate();
-        const formattedDate = month + " " + day;
-        return formattedDate;
+        const date = new Date((unix) * 1000);
+        const utc_time = date.toUTCString()
+        const time = utc_time.slice(-25, -7)
+        return time;
     }
 
     return (

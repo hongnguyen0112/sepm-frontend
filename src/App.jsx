@@ -109,22 +109,16 @@ function App() {
                         </div>)}
                     </PlacesAutocomplete>
                     <div>
-
                     </div>
                     <div className="input-group-append">
                       <button className="btn btn-success" type="button" id="button-addon2" onClick={search}>
                         <i className="fa fa-search"></i>
                       </button>
                     </div>
-                    
                   </div>
-                  
                  </div>
-
-
               </div>
             </div>
-
             <div className="web container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
               <Navbar />
               <br />
