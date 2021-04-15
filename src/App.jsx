@@ -1,7 +1,7 @@
 import Hourly from './component/Hourly';
 import Daily from './component/Daily';
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from './component/Navbar'
 import Current from "./component/Current";
 import Footer from './component/Footer'
@@ -65,7 +65,9 @@ function App() {
       <br />
       {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
         <div>
-          <Router>
+          <Router><Link to='/' className="navbar-brand" style={{fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px'}}>
+                    WOR
+                </Link>
             <div className="input-group mb-3 justify-content-center">
               <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
