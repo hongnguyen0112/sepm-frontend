@@ -1,6 +1,5 @@
 //Import libraries
 import React, { useState } from 'react'
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { Button, Modal, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
 
 const Daily = ({weather, address}) => {
