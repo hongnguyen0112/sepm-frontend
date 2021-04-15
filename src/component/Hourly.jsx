@@ -1,7 +1,7 @@
 //Import libraries
 import Slider from './Slider'
 import React, {useState} from 'react'
-import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
+import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete"; 
 import {Button, Modal, Card, Row, Col} from 'react-bootstrap'
 //API set up
 const api = {
@@ -10,7 +10,8 @@ const api = {
 }
 
 function Hourly() {
-    //Create hook for weather and setWeather function
+    
+      //Create hook for weather and setWeather function
     const [weather, setWeather] = useState({});
     //Create hook for location and setLocation function
     const [location, setLocation] = useState("");
@@ -144,6 +145,9 @@ function Hourly() {
                     </Card>
                     
                 </div>)}
+                <Row>
+                <Slider></Slider>
+                </Row>
                 <h2>Weather Info</h2>
 
                 <Row>
@@ -161,17 +165,24 @@ function Hourly() {
                         <h2>Details</h2>
                         <br/>
                         <Row>
-                            
-                                <p>12:00 {weather.current.wind_speed.toFixed(0) * 3.6} km/h</p>
                                 <hr/>
-                                <p>13:00 {weather.current.gust * 3.6} km/h</p>
-                                <hr/>
-                                <p>15:00 {weather.current.dew_point.toFixed(0)}°C</p>
-                                <hr/>                                                        
+                                <Row>{weather.hourly.map(hourly=>(
+                                    <div>
+                                        <Row>
+                                            <Col><p>{convert(hourly.dt)}</p></Col>
+                                            <Col><p>Temperatures: {hourly.temp.toFixed(0)}°C</p></Col>              
+                                            <Col><p>Humidity: {hourly.humidity} %</p></Col>                                                                                                                                                           
+                                            <Col><p> Wind speed: {hourly.wind_speed.toFixed(0) * 3.6} km/h</p></Col>   
+                                            <Col><p> UV index: {hourly.uvi}</p></Col>
+                                            {/* <Col><p>{hourly.weather}</p></Col> */}
+                                            <hr/>
+                                        </Row>
+                                    </div>
+                                ))}</Row>
                         </Row>
                     </div>
                 </Row>
-                <div>Your location: {address}</div>
+                <div>Your location: {weather.address}</div>
                 {weather.current.temp}
             </div>):(<div>{componentDidMount()}</div>)}
             
