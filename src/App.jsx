@@ -1,12 +1,12 @@
 import Hourly from './component/Hourly';
 import Daily from './component/Daily';
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import Navbar from './component/Navbar'
 import Current from "./component/Current";
 import Footer from './component/Footer'
 import './index.css'
-import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 
 const api = {
@@ -30,82 +30,86 @@ function App() {
     setAddress(value);
     setCoordinates(latLng); //Set latitude and longtitude
   };
-  const fetchData = () =>{
+  const fetchData = () => {
     fetch(`${api.base}onecall?lat=21.028511&lon=105.804817&exclude=minutely&units=metric&appid=${api.key}`)
-        .then(res => res.json())
-        .then(json => {
-            setWeather(json); //Set data of JSON file to weather
-            
-        });
-}
+      .then(res => res.json())
+      .then(json => {
+        setWeather(json); //Set data of JSON file to weather
 
-const componentDidMount = () =>  {
+      });
+  }
+
+  const componentDidMount = () => {
     fetchData();
-}
-  const search = evt =>{
+  }
+  const search = evt => {
     //Declare the url as a constant value
     const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely&units=metric&appid=${api.key}`
     //Fetching the API
     fetch(url)
-    .then(res=> res.json()) //Format the result to JSON
-    .then(json => {
+      .then(res => res.json()) //Format the result to JSON
+      .then(json => {
         setWeather(json); //Set data of JSON file to weather
         console.log(json);
         setLocation(""); //Set location to null
         setCoordinates({
-          lat:null,
+          lat: null,
           lng: null
         })
-    });
+      });
     //Test the URL
-    console.log(url) 
-    }
-    return (
-        <div className = "web">
-          {componentDidMount()}
-          <br/>
+    console.log(url)
+  }
+  return (
+    <div className="web">
+      <br />
+      {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
+        <div>
           <Router>
-          <div className="input-group mb-3 justify-content-center">
-                <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
-                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                        <div>
-                            <div>
-                                <input style={{width:'1000px'}} {...getInputProps({ placeholder: "Search for location..." })} className="form-control"/> 
+            <div className="input-group mb-3 justify-content-center">
+              <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                  <div>
+                    <div>
+                      <input style={{ width: '1000px' }} {...getInputProps({ placeholder: "Search for location..." })} className="form-control" />
+                    </div>
+                    <div className="autocomplete-dropdown-container">
+                      {loading ? <div>...loading</div> : null}
+                      {suggestions.map(suggestion => {
+                        const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
+                        return (
+                          <div >
+                            <div {...getSuggestionItemProps(suggestion, { style })} className="recommendations" style={{ width: '1000px', backgroundColor: 'white' }}>
+                              {suggestion.description}
                             </div>
-                            <div className = "autocomplete-dropdown-container">
-                                {loading ? <div>...loading</div> : null} 
-                                {suggestions.map(suggestion => {
-                                const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
-                                return (
-                                    <div >
-                                        <div {...getSuggestionItemProps(suggestion, { style })} className="recommendations" style={{width: '1000px', backgroundColor: 'white'}}>
-                                            {suggestion.description}
-                                        </div> 
-                                    </div>);
-                                })}
-                            </div>
-                        </div>)}
-                    </PlacesAutocomplete>
-                <div>
-                     
-                </div>
-                <div className="input-group-append">
-                    <button className="btn btn-success" type="button" id="button-addon2" onClick = {search}>
-                        <i className="fa fa-search"></i>
-                    </button>
-                </div>
+                          </div>);
+                      })}
+                    </div>
+                  </div>)}
+              </PlacesAutocomplete>
+              <div>
+
+              </div>
+              <div className="input-group-append">
+                <button className="btn btn-success" type="button" id="button-addon2" onClick={search}>
+                  <i className="fa fa-search"></i>
+                </button>
+              </div>
             </div>
-            <Navbar/>
-            <br/>
+            <Navbar />
+            <br />
             <Switch>
-              <Route exact path="/"> <Current weather = {weather} address = {address}/> </Route>
-              <Route exact path="/hourly"><Hourly weather = {weather} address = {address}></Hourly></Route>
-              <Route exact path="/daily"><Daily weather = {weather} address = {address}></Daily></Route>
+              <Route exact path="/"> <Current weather={weather} address={address} /> </Route>
+              <Route exact path="/hourly"><Hourly weather={weather} address={address}></Hourly></Route>
+              <Route exact path="/daily"><Daily weather={weather} address={address}></Daily></Route>
             </Switch>
-            <Footer/>
-          </Router>
-        </div>
-    )
+            <Footer />
+          </Router></div>
+      ) : (<div>{componentDidMount()}</div>)}
+      
+
+    </div>
+  )
 }
 
 export default App;
