@@ -54,10 +54,6 @@ function App() {
         setWeather(json); //Set data of JSON file to weather
         console.log(json);
         setLocation(""); //Set location to null
-        setCoordinates({
-          lat: null,
-          lng: null
-        })
         setAddress(location)
       });
     //Test the URL
