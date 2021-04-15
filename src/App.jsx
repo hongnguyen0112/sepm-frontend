@@ -31,7 +31,7 @@ function App() {
     setCoordinates(latLng); //Set latitude and longtitude
   };
   const fetchData = () => {
-    fetch(`${api.base}onecall?lat=21.028511&lon=105.804817&exclude=minutely&units=metric&appid=${api.key}`)
+    fetch(`${api.base}onecall?lat=10.8231&lon=106.6297&exclude=minutely&units=metric&appid=${api.key}`)
       .then(res => res.json())
       .then(json => {
         setWeather(json); //Set data of JSON file to weather
@@ -106,7 +106,7 @@ function App() {
             <Footer />
           </Router></div>
       ) : (<div>{componentDidMount()}</div>)}
-      
+
 
     </div>
   )
