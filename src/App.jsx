@@ -7,7 +7,7 @@ import Current from "./component/Current";
 import Footer from './component/Footer'
 import './index.css'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-
+import { Row, Col } from 'react-bootstrap'
 
 const api = {
   key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -65,39 +65,48 @@ function App() {
       <br />
       {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
         <div>
-          <Router><Link to='/' className="navbar-brand" style={{fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px'}}>
-                    WOR
-                </Link>
-            <div className="input-group mb-3 justify-content-center">
-              <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
-                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <Router>
+            <div className="row">
+              <div className="col-1" style={{paddingRight:'20px'}}>
+                <Link to='/' className="navbar-brand" style={{ fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px' }}>
+                  WOR
+            </Link>
+              </div>
+              <div className="col-11">
+                <div className="input-group mb-3 justify-content-center">
+                  <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <div>
+                        <div>
+                          <input style={{ width: '1000px' }} {...getInputProps({ placeholder: "Search for location..." })} className="form-control" />
+                        </div>
+                        <div className="autocomplete-dropdown-container">
+                          {loading ? <div>...loading</div> : null}
+                          {suggestions.map(suggestion => {
+                            const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
+                            return (
+                              <div >
+                                <div {...getSuggestionItemProps(suggestion, { style })} className="recommendations" style={{ width: '1000px', backgroundColor: 'white' }}>
+                                  {suggestion.description}
+                                </div>
+                              </div>);
+                          })}
+                        </div>
+                      </div>)}
+                  </PlacesAutocomplete>
                   <div>
-                    <div>
-                      <input style={{ width: '1000px' }} {...getInputProps({ placeholder: "Search for location..." })} className="form-control" />
-                    </div>
-                    <div className="autocomplete-dropdown-container">
-                      {loading ? <div>...loading</div> : null}
-                      {suggestions.map(suggestion => {
-                        const style = { backgroundColor: suggestion.active ? "#41b6e6" : "#fff" };
-                        return (
-                          <div >
-                            <div {...getSuggestionItemProps(suggestion, { style })} className="recommendations" style={{ width: '1000px', backgroundColor: 'white' }}>
-                              {suggestion.description}
-                            </div>
-                          </div>);
-                      })}
-                    </div>
-                  </div>)}
-              </PlacesAutocomplete>
-              <div>
 
-              </div>
-              <div className="input-group-append">
-                <button className="btn btn-success" type="button" id="button-addon2" onClick={search}>
-                  <i className="fa fa-search"></i>
-                </button>
-              </div>
+                  </div>
+                  <div className="input-group-append">
+                    <button className="btn btn-success" type="button" id="button-addon2" onClick={search}>
+                      <i className="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div></div>
+
+
             </div>
+
             <Navbar />
             <br />
             <Switch>
