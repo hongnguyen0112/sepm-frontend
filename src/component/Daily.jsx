@@ -1,24 +1,64 @@
 //Import libraries
 import React, { useState } from 'react'
-import { Button, Modal, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
+import { Button, Modal, Card, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
 
 const Daily = ({ weather, address }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // Convert unix to time
-    // Convert unix to time
+    // Convert unix to "full date with time"
     const convert = (unix) => {
-        const date = new Date((unix) * 1000);
+        const date = new Date(unix * 1000);
         const utc_time = date.toUTCString()
         const time = utc_time.slice(-25, -7)
         return time;
     }
 
+    // Convert unix to "month and day"
+    const convertMMdd = (unix) => {
+        const date = new Date(unix * 1000);
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        const month = months[date.getMonth()];
+        const day = date.getDate();
+        const formattedDate = month + " " + day;
+        return formattedDate;
+    }
+
+    // Convert unix to "Hour and Minutes"
+    const converthhmm = (unix) => {
+        const date = new Date(unix * 1000);
+        const hour = date.getUTCHours();
+        const minute = date.getUTCMinutes();
+        const formattedDate = hour + " : " + minute;
+        return formattedDate;
+    }
+
+    // Convert wind direction to user friendly format
+    const convertWindDirection = (degree) => {
+        const directions = ['North/NE', 'NE', 'East/NE', 'East', 'East/SE', 'SE', 'South/SE', 'South', 'South/SW', 'SW', 'West/SW', 'West', 'West/NW', 'NW', 'North/NW', 'North'];
+        const new_degree = parseInt((degree - 11.25) / 22.5);
+        const direction = directions[new_degree];
+        return direction;
+    }
+
+    // Convert UV Index to risk of harm
+    const convertUVIndex = (uvi) => {
+        if (uvi <= 2) {
+            return "Low";
+        } else if (uvi <= 5) {
+            return "Moderate";
+        } else if (uvi <= 7) {
+            return "High";
+        } else if (uvi <= 10) {
+            return "Very High";
+        } else {
+            return "Extreme";
+        };
+    }
+
     return (
         <div>
-
             <div>
                 {!weather.alerts ? ('') : (
                     <div className="container">
@@ -48,8 +88,8 @@ const Daily = ({ weather, address }) => {
 
                                                             <div>
                                                                 Sender Name: {alert.sender_name} <br />
-                                                                    Start: {convert(alert.start)} <br />
-                                                                    End: {convert(alert.end)} <br />
+                                                                    Start: {convert(alert.start * 1 + weather.timezone_offset * 1)} <br />
+                                                                    End: {convert(alert.end * 1, weather.timezone_offset * 1)} <br />
                                                                     Description: {alert.description} <br />
                                                             </div>
                                                         ))}
@@ -69,38 +109,83 @@ const Daily = ({ weather, address }) => {
 
                 {/* Card for weather information starts */}
                 <div className="container">
-                    <div>Your location: {address}</div>
+                    <div>Your location: {address}</div><br />
                     <Row>
                         {weather.daily.map((mapdaily, index) => (
                             <div className='col-xl-3' key={index}>
 
+                                {/* Card starts */}
                                 <Card style={{ width: '16rem' }}>
                                     <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
                                     <Card.Body>
-                                        <Card.Title>{convert(mapdaily.dt)}</Card.Title>
+                                        <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
                                         <Card.Text>{mapdaily.weather[0].description}</Card.Text>
                                         <Card.Text>
-                                            <Row>Morning: {mapdaily.temp.morn}</Row>
-                                            <Row>Day: {mapdaily.temp.day}</Row>
-                                            <Row>Evening: {mapdaily.temp.eve}</Row>
-                                            <Row>Night: {mapdaily.temp.night}</Row>
+                                            <Row>Morning: {mapdaily.temp.morn} °C</Row>
+                                            <Row>Day: {mapdaily.temp.day} °C</Row>
+                                            <Row>Evening: {mapdaily.temp.eve} °C</Row>
+                                            <Row>Night: {mapdaily.temp.night} °C</Row>
                                         </Card.Text>
                                         <Card.Text>
-                                            <Row>Minimum Temperature: {mapdaily.temp.min}</Row>
-                                            <Row>Maximum Temperature: {mapdaily.temp.max}</Row>
+                                            <Row>Minimum Temperature: {mapdaily.temp.min} °C</Row>
+                                            <Row>Maximum Temperature: {mapdaily.temp.max} °C</Row>
                                         </Card.Text>
                                     </Card.Body>
                                     <ListGroup className="list-group-flush">
-                                        <ListGroupItem>Rain: {mapdaily.rain}</ListGroupItem>
-                                        <ListGroupItem>Humidity: {mapdaily.humidity}</ListGroupItem>
-                                        <ListGroupItem>Wind speed: {mapdaily.wind_speed}</ListGroupItem>
+                                        <ListGroupItem>Rain: {mapdaily.pop} %</ListGroupItem>
+                                        <ListGroupItem>Humidity: {mapdaily.humidity} %</ListGroupItem>
+                                        <ListGroupItem>Wind speed: {mapdaily.wind_speed.toFixed(0) * 3.6} km/h</ListGroupItem>
                                     </ListGroup>
+                                    <Button variant="primary" onClick={handleShow}>Detail</Button>
+
+                                    {/* View Details start */}
+                                    <Modal size="lg" show={show} onHide={handleClose}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
+                                            <Row><Col>
+                                                <Row>Sunrise time: {converthhmm(mapdaily.sunrise * 1 + weather.timezone_offset * 1)}</Row>
+                                                <Row>Sunset time: {converthhmm(mapdaily.sunset * 1 + weather.timezone_offset * 1)}</Row><br/>
+
+                                                <Row><h5>Temperature</h5></Row>
+                                                <Row>Morning: {mapdaily.temp.morn} °C</Row>
+                                                <Row>Day: {mapdaily.temp.day} °C</Row>
+                                                <Row>Evening: {mapdaily.temp.eve} °C</Row>
+                                                <Row>Night: {mapdaily.temp.night} °C</Row><br/>
+
+                                                <Row>Minimum Temperature: {mapdaily.temp.min} °C</Row>
+                                                <Row>Maximum Temperature: {mapdaily.temp.max} °C</Row><br/>
+
+                                                <Row><h5>Temperature feels like</h5></Row>
+                                                <Row>Morning: {mapdaily.feels_like.morn} °C</Row>
+                                                <Row>Day: {mapdaily.feels_like.day} °C</Row>
+                                                <Row>Evening: {mapdaily.feels_like.eve} °C</Row>
+                                                <Row>Night: {mapdaily.feels_like.night} °C</Row><br/>
+                                            </Col>
+                                            <Col>
+                                                <Row>Sea level pressure: {mapdaily.pressure} hPa</Row>
+                                                <Row>Humidity: {mapdaily.humidity} %</Row>
+                                                <Row>Atmospheric temperature: {mapdaily.dew_point} °C</Row>
+                                                <Row>Wind speed: {mapdaily.wind_speed.toFixed(0) * 3.6} km/h</Row>
+                                                <Row>Wind gust: {mapdaily.wind_gust.toFixed(0) * 3.6} km/h</Row>
+                                                <Row>Wind direction: {convertWindDirection(mapdaily.wind_deg)}</Row>
+                                                <Row>Cloudiness: {mapdaily.clouds} %</Row>
+                                                <Row>UV index: {mapdaily.uvi} {convertUVIndex(mapdaily.uvi)}</Row>
+                                                <Row>Rain: {mapdaily.pop}%, {mapdaily.rain}mm</Row>
+                                                <Row>Snow: {mapdaily.snow} mm</Row>
+                                            </Col></Row>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="danger" onClick={handleClose}>Close</Button>
+                                        </Modal.Footer>
+                                    </Modal>
                                 </Card>
                                 <br />
                             </div>
                         ))}
                     </Row>
-                    {/* Card for weather information ends */}
                 </div>
 
             </div>
