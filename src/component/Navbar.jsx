@@ -13,13 +13,13 @@ function Navbar() {
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo02">
                     <ul class="navbar-nav justify-content-center">
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <Link to="/" className="nav-link">Today</Link>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <Link to="/hourly" className="nav-link">Hourly</Link>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <Link to="/daily" className="nav-link">Daily</Link>
                         </li>
                     </ul>

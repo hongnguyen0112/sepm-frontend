@@ -8,6 +8,7 @@ import Footer from './component/Footer'
 import './index.css'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete";
 
+
 const api = {
   key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
   base: "https://api.openweathermap.org/data/2.5/"
@@ -29,6 +30,23 @@ function App() {
     setAddress(value);
     setCoordinates(latLng); //Set latitude and longtitude
   };
+  const fetchData = () =>{
+    fetch(`${api.base}onecall?lat=21.028511&lon=105.804817&exclude=minutely&units=metric&appid=${api.key}`)
+        .then(res => res.json())
+        .then(json => {
+            setWeather(json); //Set data of JSON file to weather
+            console.log(json);
+            setLocation(""); //Set location to null
+            setCoordinates({
+              lat: null,
+              lng: null
+            })
+        });
+}
+
+const componentDidMount = () =>  {
+    fetchData();
+}
   const search = evt =>{
     //Declare the url as a constant value
     const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely&units=metric&appid=${api.key}`
@@ -49,6 +67,7 @@ function App() {
     }
     return (
         <div className = "web">
+          {componentDidMount()}
           <br/>
           <Router>
           <div className="input-group mb-3 justify-content-center">
@@ -94,4 +113,4 @@ function App() {
     )
 }
 
-export default App
+export default App;
