@@ -8,13 +8,12 @@ const Daily = ({ weather, address }) => {
     const handleShow = () => setShow(true);
 
     // Convert unix to time
+    // Convert unix to time
     const convert = (unix) => {
-        const date = new Date(unix * 1000);
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        const month = months[date.getMonth()];
-        const day = date.getDate();
-        const formattedDate = month + " " + day;
-        return formattedDate;
+        const date = new Date((unix) * 1000);
+        const utc_time = date.toUTCString()
+        const time = utc_time.slice(-25, -7)
+        return time;
     }
 
     return (
@@ -35,17 +34,30 @@ const Daily = ({ weather, address }) => {
                                         <Modal.Title>National Alerts</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        Location: {address} <br />
-                                            Alert: {weather.alerts.map(alert => (
-                                        <li>
-                                            <div>
-                                                Sender Name: {alert.sender_name} <br />
-                                                    Start: {alert.start} <br />
-                                                    End: {alert.end} <br />
-                                                    Description: {alert.description} <br />
+                                        {weather.alerts.map((a, index) => (
+                                            <div key={index}>
+                                                <div role="tabpanel">
+                                                    <ul className="nav nav-tabs" role="tablist">
+                                                        <li role="presentation" className="active"><a href={a.event} aria-controls="uploadTab" role="tab" data-toggle="tab">{a.event}</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div className="tab-content">
+                                                        <div role="tabpanel" className="tab-pane active" id={a.event}>
+                                                            Location: {address} <br />
+                                                            Alert: {weather.alerts.map(alert => (
+
+                                                            <div>
+                                                                Sender Name: {alert.sender_name} <br />
+                                                                    Start: {convert(alert.start)} <br />
+                                                                    End: {convert(alert.end)} <br />
+                                                                    Description: {alert.description} <br />
+                                                            </div>
+                                                        ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </li>
-                                    ))}
+                                        ))}
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button variant="danger" onClick={handleClose}>Close</Button>
