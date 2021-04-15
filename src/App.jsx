@@ -14,8 +14,6 @@ const api = {
 }
 
 function App() {
-  const [message, setMessage] = useState('This is message from App.jsx')
-  const [message1, setMessage1] = useState('This is another message from App.jsx')
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null
@@ -87,8 +85,8 @@ function App() {
             <br/>
             <Switch>
               <Route exact path="/"> <Current weather = {weather} address = {address}/> </Route>
-              <Route exact path="/hourly" component={Hourly} />
-              <Route exact path="/daily" component={Daily} />
+              <Route exact path="/hourly"><Hourly weather = {weather} address = {address}></Hourly></Route>
+              <Route exact path="/daily"><Daily weather = {weather} address = {address}></Daily></Route>
             </Switch>
             <Footer/>
           </Router>
