@@ -67,32 +67,29 @@ function App() {
     <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
 
       {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
-        <div style={{ backgroundColor: "#439be8" }}>
+        <div style={{ backgroundColor: "#3aa7dd" }}>
           <Router>
             <div className="container-fluid">
               <div className="row" >
-
                 <div className="col-1" >
                   <br />
-                  <Link to='/' className="navbar-brand" style={{ marginLeft: '20px', fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px' }}>
-                    WOR
-            </Link>
+                    {/* Navbrand */}
+                    <Link to='/' className="navbar-brand" style={{ marginLeft: '20px', fontFamily: 'Bad Script', fontWeight: 'bold', color: 'white', fontSize: '25px' }}>
+                      WOR
+                    </Link>
                 </div>
+                {/* Search bar */}
                 <div className="col-11"><br />
                   <div className="input-group mb-3 justify-content-center">
                     <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
                       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                         <div>
-                          
                           <div>
-                            
                             <input
                               style={{ width: '1000px' }}
                               {...getInputProps({ placeholder: "Search for location..." })}
                               className="form-control"
-                              
                             />
-                            
                           </div>
                           <div className="autocomplete-dropdown-container">
                             {loading ? <div>...loading</div> : null}
@@ -108,23 +105,17 @@ function App() {
                           </div>
                         </div>)}
                     </PlacesAutocomplete>
-                    <div>
-
-                    </div>
                     <div className="input-group-append">
                       <button className="btn btn-success" type="button" id="button-addon2" onClick={search}>
                         <i className="fa fa-search"></i>
                       </button>
                     </div>
-                    
                   </div>
-                  
                  </div>
-
-
               </div>
             </div>
-
+            
+            {/* web page */}
             <div className="web container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
               <Navbar />
               <br />
@@ -134,7 +125,6 @@ function App() {
                 <Route exact path="/daily"><Daily weather={weather} address={address}></Daily></Route>
               </Switch>
               <Footer />
-
             </div>
           </Router>
         </div>

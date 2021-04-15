@@ -99,6 +99,12 @@ main{
   font-size: large;
 }
 
+.weather-box .icon {
+  min-height: 100%;
+  text-align: right;
+  padding-top: 5%;
+}
+
 .outfit-box {
   text-align: left;
   background-color: lightcyan;
@@ -140,6 +146,12 @@ main{
 .navbar-nav > li{
   padding-left:30px;
   padding-right:30px;
+}
+
+.navbar {
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: #0c7dba;
 }
 
 div .recommendations{

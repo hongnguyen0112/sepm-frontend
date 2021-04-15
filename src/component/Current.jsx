@@ -8,6 +8,7 @@ const Current = ({ weather, address }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     // Convert unix to time
     const convert = (unix) => {
         const date = new Date((unix) * 1000);
@@ -16,6 +17,12 @@ const Current = ({ weather, address }) => {
         return time;
     }
 
+    const convertRiseSet = (unix) => {
+        const date = new Date((unix) * 1000);
+        const utc_time = date.toUTCString()
+        const time = utc_time.slice(-12, -7)
+        return time;
+    }
 
     return (
         <div>
@@ -70,12 +77,13 @@ const Current = ({ weather, address }) => {
                             <Row className="details">
                                 <Col>
                                     <h2 className="temp">{weather.current.temp.toFixed(0)}°C</h2>
+                                    <p style = {{fontWeight: "bold"}}>{weather.current.weather[0].main}</p>
                                     <p>Feels like: {weather.current.feels_like.toFixed(0)}°C</p>
                                     <p>Humidity: {weather.current.humidity}%</p>
                                     <p>UV Index: {weather.current.uvi}</p>
                                 </Col>
-                                <Col style={{ textAlign: "right", verticalAlign: "middle", height: "100%" }}>
-                                    <img style={{ height: "150px", width: "150px" }}
+                                <Col className = "icon">
+                                    <img style={{ height: "150px", width: "150px"}}
                                         src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`}
                                         alt="" />
                                 </Col>
@@ -99,20 +107,24 @@ const Current = ({ weather, address }) => {
                         <br />
                         <Row>
                             <Col>
-                                <p>Wind: {weather.current.wind_speed.toFixed(0) * 3.6} km/h</p>
-                                <hr />
-                                <p>Wind Gusts: {weather.current.gust * 3.6} km/h</p>
-                                <hr />
-                                <p>Dew Point: {weather.current.dew_point.toFixed(0)}°C</p>
-                                <hr />
+                                <p>Wind: <span style = {{float: "right"}}>{weather.current.wind_speed.toFixed(0) * 3.6} km/h</span></p>
+                                <hr/>
+                                <p>Wind Gusts: <span style = {{float: "right"}}>{weather.current.gust * 3.6} km/h</span></p>
+                                <hr/>
+                                <p>Dew Point: <span style = {{float: "right"}}>{weather.current.dew_point.toFixed(0)}°C</span></p>
+                                <hr/>
+                                <p>Sunrise: <span style = {{float: "right"}}>{convertRiseSet(weather.current.sunrise * 1 + weather.timezone_offset * 1)}</span></p>
+                                <hr/>
                             </Col>
                             <Col>
-                                <p>Pressure: {weather.current.pressure} hPa</p>
+                                <p>Pressure: <span style = {{float: "right"}}>{weather.current.pressure} hPa</span></p>
                                 <hr />
-                                <p>Cloud Cover: {weather.current.clouds}%</p>
+                                <p>Cloud Cover: <span style = {{float: "right"}}>{weather.current.clouds}%</span></p>
                                 <hr />
-                                <p>Visibility: {weather.current.visibility / 1000} km</p>
+                                <p>Visibility: <span style = {{float: "right"}}>{weather.current.visibility / 1000} km</span></p>
                                 <hr />
+                                <p>Sunset: <span style = {{float: "right"}}>{convertRiseSet(weather.current.sunset * 1 + weather.timezone_offset * 1)}</span></p>
+                                <hr/>
                             </Col>
                         </Row>
                     </div>
