@@ -17,12 +17,37 @@ const Current = ({ weather, address }) => {
         return time;
     }
 
+    //Convert unix time for sunset and sunrise display
     const convertRiseSet = (unix) => {
         const date = new Date((unix) * 1000);
         const utc_time = date.toUTCString()
         const time = utc_time.slice(-12, -7)
         return time;
     }
+
+    // Convert wind direction to user friendly format
+    const convertWindDirection = (degree) => {
+        const directions = ['North/NE', 'NE', 'East/NE', 'East', 'East/SE', 'SE', 'South/SE', 'South', 'South/SW', 'SW', 'West/SW', 'West', 'West/NW', 'NW', 'North/NW', 'North'];
+        const new_degree = parseInt((degree - 11.25) / 22.5);
+        const direction = directions[new_degree];
+        return direction;
+    }
+
+    // Convert UV Index to risk of harm
+    const convertUVIndex = (uvi) => {
+        if (uvi <= 2) {
+            return "Low";
+        } else if (uvi <= 5) {
+            return "Moderate";
+        } else if (uvi <= 7) {
+            return "High";
+        } else if (uvi <= 10) {
+            return "Very High";
+        } else {
+            return "Extreme";
+        };
+    }
+
 
     return (
         <div>
@@ -93,7 +118,7 @@ const Current = ({ weather, address }) => {
                                     <p style = {{fontWeight: "bold"}}>{weather.current.weather[0].main}</p>
                                     <p>Feels like: {weather.current.feels_like.toFixed(0)}°C</p>
                                     <p>Humidity: {weather.current.humidity}%</p>
-                                    <p>UV Index: {weather.current.uvi}</p>
+                                    <p>UV Index: {weather.current.uvi.toFixed(0)} {convertUVIndex(weather.current.uvi)}</p>
                                 </Col>
                                 <Col className = "icon">
                                     <img style={{ height: "150px", width: "150px"}}
@@ -120,7 +145,7 @@ const Current = ({ weather, address }) => {
                         <br />
                         <Row>
                             <Col>
-                                <p>Wind: <span style = {{float: "right"}}>{weather.current.wind_speed.toFixed(0) * 3.6} km/h</span></p>
+                                <p>Wind: <span style = {{float: "right"}}>{weather.current.wind_speed.toFixed(0) * 3.6} km/h {convertWindDirection(weather.current.wind_deg)}</span></p>
                                 <hr/>
                                 <p>Wind Gusts: <span style = {{float: "right"}}>{weather.current.gust * 3.6} km/h</span></p>
                                 <hr/>
