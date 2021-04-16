@@ -1,6 +1,6 @@
 //Import libraries
 import React, { useState } from 'react'
-import { Button, Modal, Card, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
+import { Button, Modal, Card, ListGroup, ListGroupItem, Row, Tabs, Tab } from 'react-bootstrap'
 
 const Daily = ({ weather, address }) => {
     const [show, setShow] = useState(false);
@@ -109,62 +109,76 @@ const Daily = ({ weather, address }) => {
 
                 {/* Card for weather information starts */}
                 <div className="container">
-                    <div>Your location: {address}</div><br/>
+                    <div>Your location: {address}</div><br />
                     <Row>
+
+                        {/* Loop function */}
                         {weather.daily.map((mapdaily, index) => (
                             <div className='col-xl-3' key={index}>
 
-                                {/* Card starts */}
-                                <Card style={{ width: '16rem' }}>
-                                    <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
-                                    <Card.Body>
-                                        <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
-                                        <Card.Text>{mapdaily.weather[0].description}</Card.Text>
-                                        <Card.Text>
-                                            <Row>Morning: {mapdaily.temp.morn} °C</Row>
-                                            <Row>Day: {mapdaily.temp.day} °C</Row>
-                                            <Row>Evening: {mapdaily.temp.eve} °C</Row>
-                                            <Row>Night: {mapdaily.temp.night} °C</Row>
-                                        </Card.Text>
-                                        <Card.Text>
-                                            <Row>Minimum Temperature: {mapdaily.temp.min} °C</Row>
-                                            <Row>Maximum Temperature: {mapdaily.temp.max} °C</Row>
-                                        </Card.Text>
-                                    </Card.Body>
-                                    <ListGroup className="list-group-flush">
-                                        <ListGroupItem>Rain: {mapdaily.pop * 100} %</ListGroupItem>
-                                        <ListGroupItem>Humidity: {mapdaily.humidity} %</ListGroupItem>
-                                        <ListGroupItem>Wind speed: {mapdaily.wind_speed.toFixed(0) * 3.6} km/h</ListGroupItem>
-                                    </ListGroup>
-                                    <Button variant="primary" onClick={handleShow}>Detail</Button>
+                                {/* Tab starts */}
+                                <Tabs defaultActiveKey="simple" id="uncontrolled-tab-example">
+                                    <Tab eventKey="simple" title="Simple">
 
-                                    {/* View Details start */}
-                                    <Modal size="lg" show={show} onHide={handleClose}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
+                                        {/* Card starts */}
+                                        <Card style={{ width: '16rem' }}>
                                             <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
-                                            <Row><Col>
-                                                <Row>Sunrise time: {converthhmm(mapdaily.sunrise * 1 + weather.timezone_offset * 1)}</Row>
-                                                <Row>Sunset time: {converthhmm(mapdaily.sunset * 1 + weather.timezone_offset * 1)}</Row><br />
+                                            <Card.Body>
+                                                <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
+                                                <Card.Text>{mapdaily.weather[0].description}</Card.Text>
+                                                <Card.Text>
+                                                    <Row>Morning: {mapdaily.temp.morn} °C</Row>
+                                                    <Row>Day: {mapdaily.temp.day} °C</Row>
+                                                    <Row>Evening: {mapdaily.temp.eve} °C</Row>
+                                                    <Row>Night: {mapdaily.temp.night} °C</Row>
+                                                </Card.Text>
+                                                <Card.Text>
+                                                    <Row>Minimum Temperature: {mapdaily.temp.min} °C</Row>
+                                                    <Row>Maximum Temperature: {mapdaily.temp.max} °C</Row>
+                                                </Card.Text>
+                                            </Card.Body>
+                                            <ListGroup className="list-group-flush">
+                                                <ListGroupItem>Rain: {mapdaily.pop * 100} %</ListGroupItem>
+                                                <ListGroupItem>Humidity: {mapdaily.humidity} %</ListGroupItem>
+                                                <ListGroupItem>Wind speed: {mapdaily.wind_speed.toFixed(0) * 3.6} km/h</ListGroupItem>
+                                            </ListGroup>
+                                        </Card>
+                                    </Tab>
 
-                                                <Row><h5>Temperature</h5></Row>
-                                                <Row>Morning: {mapdaily.temp.morn} °C</Row>
-                                                <Row>Day: {mapdaily.temp.day} °C</Row>
-                                                <Row>Evening: {mapdaily.temp.eve} °C</Row>
-                                                <Row>Night: {mapdaily.temp.night} °C</Row><br />
+                                    <Tab eventKey="temp" title="Temperature">
+                                        <Card style={{ width: '16rem' }}>
+                                            <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
+                                            <Card.Body>
+                                                <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
+                                                <Card.Text>
+                                                    <Row>Sunrise time: {converthhmm(mapdaily.sunrise * 1 + weather.timezone_offset * 1)}</Row>
+                                                    <Row>Sunset time: {converthhmm(mapdaily.sunset * 1 + weather.timezone_offset * 1)}</Row><br />
 
-                                                <Row>Minimum Temperature: {mapdaily.temp.min} °C</Row>
-                                                <Row>Maximum Temperature: {mapdaily.temp.max} °C</Row><br />
+                                                    <Row><h5>Temperature</h5></Row>
+                                                    <Row>Morning: {mapdaily.temp.morn} °C</Row>
+                                                    <Row>Day: {mapdaily.temp.day} °C</Row>
+                                                    <Row>Evening: {mapdaily.temp.eve} °C</Row>
+                                                    <Row>Night: {mapdaily.temp.night} °C</Row><br />
 
-                                                <Row><h5>Temperature feels like</h5></Row>
-                                                <Row>Morning: {mapdaily.feels_like.morn} °C</Row>
-                                                <Row>Day: {mapdaily.feels_like.day} °C</Row>
-                                                <Row>Evening: {mapdaily.feels_like.eve} °C</Row>
-                                                <Row>Night: {mapdaily.feels_like.night} °C</Row><br />
-                                            </Col>
-                                                <Col>
+                                                    <Row>Minimum Temperature: {mapdaily.temp.min} °C</Row>
+                                                    <Row>Maximum Temperature: {mapdaily.temp.max} °C</Row><br />
+
+                                                    <Row><h5>Temperature feels like</h5></Row>
+                                                    <Row>Morning: {mapdaily.feels_like.morn} °C</Row>
+                                                    <Row>Day: {mapdaily.feels_like.day} °C</Row>
+                                                    <Row>Evening: {mapdaily.feels_like.eve} °C</Row>
+                                                    <Row>Night: {mapdaily.feels_like.night} °C</Row><br />
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    </Tab>
+
+                                    <Tab eventKey="detail" title="Detail">
+                                        <Card style={{ width: '16rem' }}>
+                                            <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
+                                            <Card.Body>
+                                                <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
+                                                <Card.Text>
                                                     <Row>Sea level pressure: {mapdaily.pressure} hPa</Row>
                                                     <Row>Humidity: {mapdaily.humidity} %</Row>
                                                     <Row>Atmospheric temperature: {mapdaily.dew_point} °C</Row>
@@ -175,20 +189,18 @@ const Daily = ({ weather, address }) => {
                                                     <Row>UV index: {mapdaily.uvi} {convertUVIndex(mapdaily.uvi)}</Row>
                                                     <Row>Rain: {mapdaily.pop * 100}%, {mapdaily.rain}mm</Row>
                                                     <Row>Snow: {mapdaily.snow} mm</Row>
-                                                </Col></Row>
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button variant="danger" onClick={handleClose}>Close</Button>
-                                        </Modal.Footer>
-                                    </Modal>
-                                </Card>
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    </Tab>
+                                </Tabs>
                                 <br />
                             </div>
                         ))}
                     </Row>
                 </div>
 
-            </div>
+            </div >
         </div >
     );
 }
