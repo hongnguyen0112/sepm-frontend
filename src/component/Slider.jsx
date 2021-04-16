@@ -7,24 +7,28 @@ const now = new Date()
 const getTodayAtSpecificHour = (hour = 0) =>
 	set(now, { hours: hour, minutes: 0, seconds: 0, milliseconds: 0 })
 
-const selectedStart = getTodayAtSpecificHour()
-const selectedEnd = getTodayAtSpecificHour(14)
+const selectedStart =  getTodayAtSpecificHour(0)
+const selectedEnd =  getTodayAtSpecificHour(1)
 
-const startTime = getTodayAtSpecificHour(0)
-const endTime = endOfToday()
+const startTime =  getTodayAtSpecificHour()
+const endTime =  endOfToday()
 
-class Slider extends React.Component {  
-  state = {  
-    error: false,  
-    selectedInterval: [selectedStart, selectedEnd],  
-  }
+function Slider() {  
+  // state = {  
+  //   error: false,  
+  //   selectedInterval: [selectedStart, selectedEnd],  
+  // }
 	
-  errorHandler = ({ error }) => this.setState({ error })  
+  // errorHandler = ({ error }) => this.setState({ error })  
 
-  onChangeCallback = selectedInterval => this.setState({ selectedInterval })  
+  // onChangeCallback = selectedInterval => this.setState({ selectedInterval })  
 
-  render() {  
-    const { selectedInterval, error } = this.state  
+  // render() {  
+  //   const { selectedInterval, error } = this.state  
+  const error =() => error (false)
+  const selectedInterval = [selectedStart,selectedEnd] 
+  const errorHandler = () => ({ error })  
+  const onChangeCallback = () => (selectedInterval ) 
       return (  
         <div className="container">
         <div className="info">
@@ -34,16 +38,15 @@ class Slider extends React.Component {
           ))}
         </div>
         <TimeRange
-          error={error}  
           ticksNumber={36}  
-          selectedInterval={selectedInterval}  
+
+          selectedInterval = {selectedInterval}
           timelineInterval={[startTime, endTime]}  
-          onUpdateCallback={this.errorHandler}  
-          onChangeCallback={this.onChangeCallback}  
+          onUpdateCallback={errorHandler}  
+          onChangeCallback={onChangeCallback}  
         />
         </div>
       )  
-  }  
-}  
+  }    
 
 export default Slider;

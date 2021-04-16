@@ -3,6 +3,9 @@ import Slider from './Slider'
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete"; 
 import {Button, Modal, Card, Row, Col} from 'react-bootstrap'
+import { format } from "date-fns";
+import { render } from 'react-dom/cjs/react-dom.development';
+import TimeRangePicker from '@wojtekmaj/react-timerange-picker'; 
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
@@ -10,6 +13,7 @@ const api = {
 }
 
 function Hourly() {
+    const [value, onChange] = useState(['00:00', '23:59']);
     
       //Create hook for weather and setWeather function
     const [weather, setWeather] = useState({});
@@ -77,6 +81,13 @@ function Hourly() {
         const time = date.toUTCString()
         return time;
     }
+    const converthhmm = (unix) => {
+        const date = new Date(unix * 1000);
+        const hour = date.getUTCHours();
+        const minute = date.getUTCMinutes(10);
+        const formattedDate = hour + " : " + minute;
+        return formattedDate;
+    }
 
     return (
         <div>
@@ -108,6 +119,7 @@ function Hourly() {
             </div>
             
             <h1>This is hourly page</h1>
+            
             {(typeof weather.lat != 'undefined' && typeof weather.lon!='undefined')?(
             <div>
                 {!weather.alerts? (''):(
@@ -146,7 +158,34 @@ function Hourly() {
                     
                 </div>)}
                 <Row>
-                <Slider></Slider>
+                <Slider>
+                
+                </Slider>
+                <div>
+                    {console.log(weather)}
+
+                    <div>
+                        <div>
+                            <TimeRangePicker
+                                onChange={onChange}
+                                value= {value}
+                                disableClock= 'true'
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {weather.hourly.filter(data => (value[0] <= converthhmm(data.dt) && converthhmm(data.dt) <= value[1])).map((data, index) => (
+                        <div key={index}>
+                            {converthhmm(data.dt)}
+                            {data.weather.map(weather=>(
+                                weather.main
+                            )
+                            )}
+                        </div>
+                     ))}
+                </div>
+
                 </Row>
                 <h2>Weather Info</h2>
 
