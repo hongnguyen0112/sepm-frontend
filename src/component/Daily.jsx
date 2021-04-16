@@ -1,11 +1,22 @@
 //Import libraries
 import React, { useState } from 'react'
 import { Button, Modal, Card, ListGroup, ListGroupItem, Row, Tabs, Tab } from 'react-bootstrap'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Daily = ({ weather, address }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 3
+    };
 
     // Convert unix to "full date with time"
     const convert = (unix) => {
@@ -110,18 +121,19 @@ const Daily = ({ weather, address }) => {
                 {/* Card for weather information starts */}
                 <div className="container">
                     <div>Your location: {address}</div><br />
-                    <Row>
+
+                    <Slider {...settings}>
 
                         {/* Loop function */}
                         {weather.daily.map((mapdaily, index) => (
-                            <div className='col-xl-3' key={index}>
+                            <div className='col-xl-4' key={index}>
 
                                 {/* Tab starts */}
                                 <Tabs defaultActiveKey="simple" id="uncontrolled-tab-example">
                                     <Tab eventKey="simple" title="Simple">
 
                                         {/* Card starts */}
-                                        <Card style={{ width: '16rem' }}>
+                                        <Card style={{ width: '22rem' }}>
                                             <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
                                             <Card.Body>
                                                 <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
@@ -146,7 +158,7 @@ const Daily = ({ weather, address }) => {
                                     </Tab>
 
                                     <Tab eventKey="temp" title="Temperature">
-                                        <Card style={{ width: '16rem' }}>
+                                        <Card style={{ width: '22rem' }}>
                                             <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
                                             <Card.Body>
                                                 <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
@@ -174,7 +186,7 @@ const Daily = ({ weather, address }) => {
                                     </Tab>
 
                                     <Tab eventKey="detail" title="Detail">
-                                        <Card style={{ width: '16rem' }}>
+                                        <Card style={{ width: '22rem' }}>
                                             <Card.Img variant="top" style={{ height: "150px", width: "150px" }} src={`http://openweathermap.org/img/w/${mapdaily.weather[0].icon}.png`} />
                                             <Card.Body>
                                                 <Card.Title>{convertMMdd(mapdaily.dt * 1 + weather.timezone_offset * 1)}</Card.Title>
@@ -194,10 +206,10 @@ const Daily = ({ weather, address }) => {
                                         </Card>
                                     </Tab>
                                 </Tabs>
-                                <br />
+
                             </div>
                         ))}
-                    </Row>
+                    </Slider>
                 </div>
 
             </div >
