@@ -150,7 +150,7 @@ const Daily = ({ weather, address }) => {
                                                 </Card.Text>
                                             </Card.Body>
                                             <ListGroup className="list-group-flush">
-                                                <ListGroupItem>Rain: {mapdaily.pop * 100} %</ListGroupItem>
+                                                <ListGroupItem>Rain: {(mapdaily.pop * 100).toFixed(0)} %</ListGroupItem>
                                                 <ListGroupItem>Humidity: {mapdaily.humidity} %</ListGroupItem>
                                                 <ListGroupItem>Wind speed: {mapdaily.wind_speed.toFixed(0) * 3.6} km/h</ListGroupItem>
                                             </ListGroup>
