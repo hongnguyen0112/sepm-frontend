@@ -22,7 +22,7 @@ function Hourly({ weather, address }) {
     const converthhmm = (unix) => {
         const date = new Date(unix * 1000);
         const hour = date.getUTCHours();
-        const minute = date.getUTCMinutes();
+        const minute = date.getUTCMinutes(10);
         const formattedDate = hour + " : " + minute;
         return formattedDate;
     }
@@ -95,8 +95,9 @@ function Hourly({ weather, address }) {
                     </div>
                 </div>
                 <div>
-                    {weather.hourly.filter(data => value[0] <= converthhmm(data.dt)).filter(data => converthhmm(data.dt) <= value[1]).map((data, index) => (
+                    {weather.hourly.filter(data => (value[0] <= converthhmm(data.dt) && converthhmm(data.dt) <= value[1])).map((data, index) => (
                         <div key={index}>
+                            {converthhmm(data.dt)}
                             {data.weather.map(weather=>(
                                 weather.main
                             )
