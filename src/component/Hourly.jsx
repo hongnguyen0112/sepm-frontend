@@ -1,11 +1,11 @@
 //Import libraries
 import React, { useState } from 'react'
-import { Button, Modal, Card } from 'react-bootstrap'
+import { Button, Modal, Card, Row, Col } from 'react-bootstrap'
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
-
+import Slider from './Slider'
 
 function Hourly({ weather, address }) {
-    
+
     const [value, onChange] = useState(['10:00', '11:00']);
 
     const [show, setShow] = useState(false);
@@ -106,7 +106,8 @@ function Hourly({ weather, address }) {
                     ))}
                 </div>
 
-            </div>
+            </div> 
+            
         </div>
     );
 }

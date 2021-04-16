@@ -13,6 +13,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "chokidar": "^2.1.8",
+    "date-fns": "^2.21.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
@@ -20,6 +21,7 @@
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-timeline-range-slider": "^1.4.1",
     "vue": "^2.6.12",
     "web-vitals": "^1.1.1"
   },
