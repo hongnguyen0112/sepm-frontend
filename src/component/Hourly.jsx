@@ -1,9 +1,13 @@
 //Import libraries
 import React, { useState } from 'react'
 import { Button, Modal, Card } from 'react-bootstrap'
+import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
 
 
 function Hourly({ weather, address }) {
+    
+    const [value, onChange] = useState(['10:00', '11:00']);
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -13,6 +17,14 @@ function Hourly({ weather, address }) {
         const utc_time = date.toUTCString()
         const time = utc_time.slice(-25, -7)
         return time;
+    }
+
+    const converthhmm = (unix) => {
+        const date = new Date(unix * 1000);
+        const hour = date.getUTCHours();
+        const minute = date.getUTCMinutes();
+        const formattedDate = hour + " : " + minute;
+        return formattedDate;
     }
     return (
         <div>
@@ -45,13 +57,13 @@ function Hourly({ weather, address }) {
                                                         <div role="tabpanel" className="tab-pane active" id={a.event}>
                                                             Location: {address} <br />
                                                             Alert: {weather.alerts.map(alert => (
-                                                            
-                                                                <div>
-                                                                    Sender Name: {alert.sender_name} <br />
+
+                                                            <div>
+                                                                Sender Name: {alert.sender_name} <br />
                                                                     Start: {convert(alert.start)} <br />
                                                                     End: {convert(alert.end)} <br />
                                                                     Description: {alert.description} <br />
-                                                                </div>
+                                                            </div>
                                                         ))}
                                                         </div>
                                                     </div>
@@ -69,8 +81,29 @@ function Hourly({ weather, address }) {
 
                     </div>)}
                 <h2>Weather Info</h2>
-                <div>Your location: {address}</div>
-                {weather.current.temp}
+                <div>
+                    {console.log(weather)}
+
+                    <div>
+                        <div>
+                            <TimeRangePicker
+                                onChange={onChange}
+                                value= {value}
+                                disableClock= 'true'
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {weather.hourly.filter(data => value[0] <= converthhmm(data.dt)).filter(data => converthhmm(data.dt) <= value[1]).map((data, index) => (
+                        <div key={index}>
+                            {data.weather.map(weather=>(
+                                weather.main
+                            )
+                            )}
+                        </div>
+                    ))}
+                </div>
 
             </div>
         </div>
