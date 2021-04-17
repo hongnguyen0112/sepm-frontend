@@ -1,19 +1,33 @@
 //Import libraries
-import Slider from './Slider'
 import React, {useState} from 'react'
 import PlacesAutocomplete, {geocodeByAddress,getLatLng} from "react-places-autocomplete"; 
 import {Button, Modal, Card, Row, Col} from 'react-bootstrap'
 import { format } from "date-fns";
-import { render } from 'react-dom/cjs/react-dom.development';
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker'; 
+import { endOfToday, set } from 'date-fns' 
+import TimeRange from 'react-timeline-range-slider'  
 //API set up
 const api = {
     key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
-    base: "https://api.openweathermap.org/data/2.5/"
+    base: "https://api.openweathermap.org/data/2.5/" 
 }
+const now = new Date()
+const getTodayAtSpecificHour = (hour = 0) =>
+	set(now, { hours: hour, minutes: 0, seconds: 0, milliseconds: 0 })
+
+const selectedStart =  getTodayAtSpecificHour(0)
+const selectedEnd =  getTodayAtSpecificHour(1)
+
+const startTime =  getTodayAtSpecificHour()
+const endTime =  endOfToday()
 
 function Hourly() {
-    const [value, onChange] = useState(['00:00', '23:59']);
+    const error =() =>(false)
+    const selectedInterval = [selectedStart,selectedEnd] 
+    const errorHandler = () => ({ error })  
+    const onChangeCallback = (selectedInterval) => ({selectedInterval} )
+    const [value, onChange] = useState(['00:00', '10:00']);
+
     
       //Create hook for weather and setWeather function
     const [weather, setWeather] = useState({});
@@ -78,6 +92,7 @@ function Hourly() {
     };
     const convert = (unix) => {
         const date = new Date(unix * 1000);
+        const hour =date.getUTCHours();
         const time = date.toUTCString()
         return time;
     }
@@ -158,9 +173,21 @@ function Hourly() {
                     
                 </div>)}
                 <Row>
-                <Slider>
-                
-                </Slider>
+                <div className="container">
+                    <div className="info">
+                        <span>Selected Interval: </span>
+                        {selectedInterval.map((d, i) => (
+                            <span key={i}>{format(d, "dd MMM, HH:mm")}</span>
+                        ))}
+                    </div>
+                    <TimeRange
+                        ticksNumber={36}  
+                        selectedInterval = {selectedInterval}
+                        timelineInterval={[startTime, endTime]}  
+                        onUpdateCallback={errorHandler}  
+                        onChangeCallback={onChangeCallback}  
+                    />
+                </div>
                 <div>
                     {console.log(weather)}
 
@@ -175,9 +202,9 @@ function Hourly() {
                     </div>
                 </div>
                 <div>
-                    {weather.hourly.filter(data => (value[0] <= converthhmm(data.dt) && converthhmm(data.dt) <= value[1])).map((data, index) => (
+                    {weather.hourly.filter(data => (value[0] <= convert(data.dt) && convert(data.dt) <= value[1])).map((data, index) => (
                         <div key={index}>
-                            {converthhmm(data.dt)}
+                            {convert(data.dt)}
                             {data.weather.map(weather=>(
                                 weather.main
                             )
