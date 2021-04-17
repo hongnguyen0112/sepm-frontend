@@ -91,7 +91,8 @@ function Hourly() {
         setCoordinates(latLng); //Set latitude and longtitude
     };
     const convert = (unix) => {
-        const date = new Date(unix * 1000)
+        const date = new Date(unix * 1000);
+        const hour =date.getUTCHours();
         const time = date.toUTCString()
         return time;
     }
