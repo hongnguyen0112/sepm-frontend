@@ -91,15 +91,15 @@ function Hourly() {
         setCoordinates(latLng); //Set latitude and longtitude
     };
     const convert = (unix) => {
-        const date = new Date(unix * 1000);
-        const hour =date.getUTCHours();
+        const date = new Date(unix * 1000)
         const time = date.toUTCString()
         return time;
     }
+    
     const converthhmm = (unix) => {
         const date = new Date(unix * 1000);
         const hour = date.getUTCHours();
-        const minute = date.getUTCMinutes(10);
+        const minute = date.getUTCMinutes();
         const formattedDate = hour + " : " + minute;
         return formattedDate;
     }
@@ -202,9 +202,9 @@ function Hourly() {
                     </div>
                 </div>
                 <div>
-                    {weather.hourly.filter(data => (value[0] <= convert(data.dt) && convert(data.dt) <= value[1])).map((data, index) => (
+                    {weather.hourly.filter(data => (value[0] <= converthhmm(data.dt) && converthhmm(data.dt) <= value[1])).map((data, index) => (
                         <div key={index}>
-                            {convert(data.dt)}
+                            {converthhmm(data.dt)}
                             {data.weather.map(weather=>(
                                 weather.main
                             )
