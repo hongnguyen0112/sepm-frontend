@@ -116,7 +116,9 @@ function Hourly({ weather, address }) {
                                 <TimeRangePicker
                                     onChange={onChange}
                                     value={value}
+                                    clearIcon = {null}
                                     disableClock='true'
+                                    
                                 />
 
                             </div></Col>
