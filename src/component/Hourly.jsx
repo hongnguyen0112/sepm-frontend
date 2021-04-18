@@ -33,7 +33,7 @@ function Hourly({weather, address}) {
         var today = new Date()
         const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         let datetime = date + " " +time
-        let unix  = Date.parse(datetime)/1000
+        let unix  = (Date.parse(datetime)/1000).toFixed(0)
         {console.log(`${date}${time}`)}
         {console.log(datetime)}
         {console.log("Unix: " + {unix})}
