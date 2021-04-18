@@ -112,6 +112,10 @@ main{
   padding: 2%;
   min-height: 100%;
 }
+.outfit-box .content{
+  display: inline-block;
+  text-align: center;
+}
 
 .detail-box {
   text-align: left;

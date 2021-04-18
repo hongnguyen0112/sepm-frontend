@@ -123,7 +123,8 @@ const Current = ({ weather, address }) => {
                                 <Col className = "icon">
                                     <img style={{ height: "150px", width: "150px"}}
                                         src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`}
-                                        alt="" />
+                                        alt="" 
+                                    />
                                 </Col>
                             </Row>
                             <Row style={{ paddingLeft: "0.5%" }}>
@@ -135,6 +136,36 @@ const Current = ({ weather, address }) => {
                     <div className="col">
                         <div className="outfit-box">
                             <h2>Outfit</h2>
+                            <div className = "content">
+                                <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
+                                    <img style={{ height: "150px", width: "150px"}}
+                                                src={`https://png.pngtree.com/png-clipart/20190118/ourlarge/pngtree-baseball-cap-hand-drawn-hand-account-book-cartoon-png-image_458138.jpg`}
+                                                alt="Cap" 
+                                    />
+                                    <img style={{ height: "150px", width: "150px"}}
+                                                src={`https://png.pngtree.com/png-clipart/20190520/original/pngtree-down-jacket-coat-coat-hairy-png-image_3893118.jpg`}
+                                                alt="Cap" 
+                                    />
+                                     <img style={{ height: "150px", width: "150px"}}
+                                                src={`https://png.pngtree.com/png-clipart/20190920/original/pngtree-sunglasses-cartoon-png-image_4633566.jpg`}
+                                                alt="Cap" 
+                                    />
+                                </Row>
+                                <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
+                                    <img style={{ height: "150px", width: "150px"}}
+                                                    src={`https://png.pngtree.com/png-clipart/20190118/ourlarge/pngtree-baseball-cap-hand-drawn-hand-account-book-cartoon-png-image_458138.jpg`}
+                                                    alt="Cap" 
+                                    />
+                                    <img style={{ height: "150px", width: "150px"}}
+                                                src={`https://png.pngtree.com/png-clipart/20190520/original/pngtree-down-jacket-coat-coat-hairy-png-image_3893118.jpg`}
+                                                alt="Cap" 
+                                    />
+                                    <img style={{ height: "150px", width: "150px"}}
+                                                src={`https://png.pngtree.com/png-clipart/20190920/original/pngtree-sunglasses-cartoon-png-image_4633566.jpg`}
+                                                alt="Cap" 
+                                    />
+                                </Row>
+                            </div>
                         </div>
                     </div>
                 </Row>
