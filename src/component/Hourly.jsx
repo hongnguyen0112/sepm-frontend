@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Button, Modal, Card, Row, Col, Table} from 'react-bootstrap'
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker'; 
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
+// import umbrella from './assesst/umbrella.png'
 
 
 function Hourly({weather, address}) {
@@ -105,7 +105,9 @@ function Hourly({weather, address}) {
                 <div className = "weather-box">
                             
                             <Row className = "details">
+                                <h2 style = {{textAlign: "justify"}}>Location: {address}</h2> 
                                 <Col >
+                                                                
                                     <h2 className = "temp">{weather.current.temp.toFixed(0)}°C</h2>
                                     <p>Feels like: {weather.current.feels_like.toFixed(0)}°C</p>
                                     <p>Humidity: {weather.current.humidity}%</p>
@@ -125,6 +127,18 @@ function Hourly({weather, address}) {
                     <div className = "col">
                         <div className = "outfit-box">
                             <h2>Recommendation</h2>
+                            <img style = {{height:"300px", width: "300px"} } 
+                                    src="umbrella.png"
+                                    alt = "umbrella"/>
+                           <img style = {{height:"300px", width: "300px"} } 
+                                    src="sunglasses.jpg"
+                                    alt = "sunglasses"/>      
+                            <img style = {{height:"300px", width: "300px"} } 
+                                    src="cap.png"
+                                    alt = "cap"/>
+                            <img style = {{height:"300px", width: "300px"} } 
+                                    src="hoodiejacket.png"
+                                    alt = "hoodie"/>                                    
                         </div>
                     </div>
                 </Row>
