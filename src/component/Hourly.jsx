@@ -36,13 +36,13 @@ function Hourly({weather, address}) {
         return unix;
     }
         
-    const converthhmm = (unix) => {
-        const date = new Date(unix * 1000);
-        const hour = date.getUTCHours();
-        const minute = date.getUTCMinutes();
-        const formattedDate = (hour + " : " + minute);
-        return formattedDate;
-    }
+    // const converthhmm = (unix) => {
+    //     const date = new Date(unix * 1000);
+    //     const hour = date.getUTCHours();
+    //     const minute = date.getUTCMinutes();
+    //     const formattedDate = (hour + " : " + minute);
+    //     return formattedDate;
+    // }
    
 
       
@@ -51,7 +51,7 @@ function Hourly({weather, address}) {
     return (
         <div>
 
-            {address}
+            
             <div>
             {!weather.alerts ? ('') : (
                     <div className="container">
@@ -102,16 +102,33 @@ function Hourly({weather, address}) {
                     
                 </div>)}
                 <h2>Weather Info</h2>
-
-                <Row>
-                    
-
+                <div className = "weather-box">
+                            
+                            <Row className = "details">
+                                <Col >
+                                    <h2 className = "temp">{weather.current.temp.toFixed(0)}°C</h2>
+                                    <p>Feels like: {weather.current.feels_like.toFixed(0)}°C</p>
+                                    <p>Humidity: {weather.current.humidity}%</p>
+                                    <p>UV Index: {weather.current.uvi}</p>
+                                </Col>
+                                <Col style = {{textAlign: "left", verticalAlign: "middle", height: "100%"}}>
+                                    <img style = {{height:"300px", width: "300px"} } 
+                                    src={`http://openweathermap.org/img/w/${weather.current.weather[0].icon}.png`} 
+                                    alt=""/>
+                                </Col>
+                            </Row>
+                            <Row style = {{paddingLeft: "0.5%"}}>
+                                <p>Updated: {convertDate(weather.current.dt + weather.timezone_offset *1)}</p>
+                            </Row>
+                        </div>  <br/>                                              
+                <Row>                   
                     <div className = "col">
                         <div className = "outfit-box">
                             <h2>Recommendation</h2>
                         </div>
                     </div>
                 </Row>
+                
                 
                 <Row>
                     <div className = "detail-box">
@@ -126,17 +143,14 @@ function Hourly({weather, address}) {
                                 onChange={onChange}
                                 value= {value}
                                 disableClock= 'true'
-                                />
-                               
+                                />                              
                             </div></Col>
                             <Col></Col>
                          
                         </Row>
                         <Row>
                             <hr/>
-                                <Row>
-
-                                
+                                <Row>                                
                                     <div >
                                         <Table> 
                                             <thead>
@@ -148,38 +162,33 @@ function Hourly({weather, address}) {
                                                     <th><b>UV Index</b></th>
                                                 </tr>
                                             </thead>
-                                            {weather.hourly.filter(data => (compare(value[0]) <= data.dt && data.dt <= compare(value[1]))).map((data, index)=> (
+                                                {weather.hourly.filter(data => (compare(value[0]) <= data.dt && data.dt <= compare(value[1]))).map((data, index)=> (
                                             <tbody key = {index}>
-                                                <tr  data-toggle="collapse"
-                                                    data-target=".multi-collapse1"
-                                                    aria-controls="multiCollapseExample1">
+                                                <tr     data-toggle="collapse"
+                                                        data-target=".multi-collapse1"
+                                                        aria-controls="multiCollapseExample1">
                                                                                                                 
-                                                        <td>{convertDate(data.dt + weather.timezone_offset *1)}</td>
-                                                        <td>{data.temp.toFixed(0)}°C</td>
-                                                        <td>{data.humidity} %</td>
-                                                        <td>{data.pop} % </td>
-                                                        <td>{data.uvi}</td>
+                                                            <td>{convertDate(data.dt + weather.timezone_offset *1)}</td>
+                                                            <td>{data.temp.toFixed(0)}°C</td>
+                                                            <td>{data.humidity} %</td>
+                                                            <td>{data.pop} % </td>
+                                                            <td>{data.uvi}</td>
                                                         
                                                </tr>
                                                 
-                                                <tr class="collapse multi-collapse1" id="multiCollapseExample1"> <b>
+                                                <tr class="collapse multi-collapse1" id="multiCollapseExample1"> 
+                                                
+                                                    <b>
                                                     
-                                                    <td>Wind speed: {data.wind_speed.toFixed(0) * 3.6} km/h </td>
-                                                    <td>Pressure:  {data.pressure} hPa</td>
-                                                    <td>Dew point: {data.dew_point.toFixed(0)}°C</td>
-                                                    <td>Visibility: {data.visibility/1000} km</td>
-                                                    <td>Cloudiness: {data.clouds} % </td>
-                                                    <td>Wind gust: {data.wind_gust.toFixed(0) *3.6} km/h</td>
+                                                        <td>Wind speed: {data.wind_speed.toFixed(0) * 3.6} km/h </td>
+                                                        <td>Pressure:  {data.pressure} hPa</td>
+                                                        <td>Dew point: {data.dew_point.toFixed(0)}°C</td>
+                                                        <td>Visibility: {data.visibility/1000} km</td>
+                                                        <td>Cloudiness: {data.clouds} % </td>
+                                                        <td>Wind gust: {data.wind_gust.toFixed(0) *3.6} km/h</td>
 
                                                     </b>
-                                                </tr>      
-                                                                      
-                                            {/* <Col><p>{convertDate(data.dt + weather.timezone_offset *1)}</p></Col>
-                                            <Col><p>Temperatures: {data.temp.toFixed(0)}°C</p></Col>              
-                                            <Col><p>Humidity: {data.humidity} %</p></Col>                                                                                                                                                           
-                                            <Col><p> Wind speed: {data.wind_speed.toFixed(0) * 3.6} km/h</p></Col>   
-                                            <Col><p> UV index: {data.uvi}</p></Col> */}
-                                                                                                 
+                                                </tr>                                                                                                                                                                          
                                             
                                             </tbody> 
                                             ))}
