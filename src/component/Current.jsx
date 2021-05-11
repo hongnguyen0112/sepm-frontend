@@ -5,6 +5,7 @@ import { Button, Modal, Card, Row, Col } from 'react-bootstrap'
 
 const Current = ({ weather, address }) => {
 
+    
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -33,6 +34,7 @@ const Current = ({ weather, address }) => {
         return direction;
     }
 
+
     // Convert UV Index to risk of harm
     const convertUVIndex = (uvi) => {
         if (uvi <= 2) {
@@ -51,7 +53,6 @@ const Current = ({ weather, address }) => {
 
     return (
         <div>
-
             <div className="web-container">
                 {/* Weather alerts */}
                 {!weather.alerts ? (

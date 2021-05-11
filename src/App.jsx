@@ -20,6 +20,7 @@ function App() {
     lng: null
   });
   const [weather, setWeather] = useState({});
+  const [outfit, setOutfit] = useState({});
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("Ho Chi Minh City, Vietnam");
   //async/await function to get the data from Google Maps API
@@ -58,10 +59,15 @@ function App() {
       });
     //Test the URL
     console.log(url)
+    fetch("http://127.0.0.1:5000/predict")
+      .then(res=>res.json())
+      .then(json=>{
+        setOutfit(json);
+        console.log(json)
+      })
   }
   return (
     <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
-
       {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
         <div style={{ backgroundColor: "#3aa7dd" }}>
           <Router>
