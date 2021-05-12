@@ -8,20 +8,19 @@ import Footer from './component/Footer'
 import './index.css'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
-
+//API key
 const api = {
   key: "2bf14f2db250719b59f4c8cc5eb9eb9c",
   base: "https://api.openweathermap.org/data/2.5/"
 }
 
 function App() {
+
   const [coordinates, setCoordinates] = useState({
     lat: 10.8231,
     lng: 106.6297
   });
-  
   const [weather, setWeather] = useState({});
- 
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("Ho Chi Minh City, Vietnam");
 
@@ -33,6 +32,7 @@ function App() {
     setCoordinates(latLng); //Set latitude and longtitude
   };
 
+  //Fetch weather data
   const fetchData = () => {
     fetch(`${api.base}onecall?lat=10.8231&lon=106.6297&exclude=minutely&units=metric&appid=${api.key}`)
       .then(res => res.json())
@@ -45,23 +45,22 @@ function App() {
     fetchData()
   }
 
+  //Search function
   const search = evt => {
     if(location.trim().length === 0){
       return;
     }
-    //Declare the url as a constant value
+    //Declare the url
     const url = `${api.base}onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&exclude=minutely&units=metric&appid=${api.key}`
     //Fetching the API
     fetch(url)
-      .then(res => res.json()) //Format the result to JSON
+      .then(res => res.json()) 
       .then(json => {
         setWeather(json); //Set data of JSON file to weather
-        console.log(json);
-        setLocation(""); //Set location to null
-        setAddress(location)
+        setLocation("");  //Set location to null
+        setAddress(location)  //Set address
       });
     //Test the URL
-    console.log(url)
   }
 
   return (
@@ -78,6 +77,7 @@ function App() {
                       WOR
                     </Link>
                 </div>
+                
                 {/* Search bar */}
                 <div className="col-11"><br />
                   <div className="input-group mb-3 justify-content-center">

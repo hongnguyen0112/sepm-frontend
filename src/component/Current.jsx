@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal, Card, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+
+//Import icons
 import beanie from "../assesst/beanie.png"
 import hat from "../assesst/hat.png"
 import sunglasses from "../assesst/sunglasses.png"
@@ -21,7 +23,6 @@ import raincoat from "../assesst/raincoat.png"
 
 const Current = ({ weather, address, lat, lon }) => {
 
-    
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -80,12 +81,13 @@ const Current = ({ weather, address, lat, lon }) => {
     }
 
     var current_outfit = outfit
-    //console.log(current_outfit)
     const outfit_list_size = 15
+
     //outfit recommendation array
     var recommendation = []
     const recommendation_size = 6
     var recommendation_index = 0
+
     //List of outfit
     var imgArray = []
     imgArray[0] = beanie
@@ -128,6 +130,7 @@ const Current = ({ weather, address, lat, lon }) => {
     return (
         <div>
             <div className="web-container">
+                
                 {/* Weather alerts */}
                 {!weather.alerts ? (
                     '') : (
@@ -207,7 +210,8 @@ const Current = ({ weather, address, lat, lon }) => {
                             </Row>
                         </div>
                     </Col>
-
+                    
+                    {/* Outfit section */}
                     <div className="col">
                         <div className="outfit-box">
                             <h2>Outfit</h2>
@@ -226,7 +230,8 @@ const Current = ({ weather, address, lat, lon }) => {
                         </div>
                     </div>
                 </Row>
-
+                
+                {/* Detail section */}
                 <Row>
                     <div className="detail-box">
                         <h2>Details</h2>
