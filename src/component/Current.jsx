@@ -217,15 +217,12 @@ const Current = ({ weather, address, lat, lon }) => {
                         <div className="outfit-box">
                             <h2>Outfit</h2>
                             <div className = "content">
-                                <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
-                                    <img src={recommendation[0]} alt="" className="icon"/>
-                                    <img src={recommendation[1]} alt="" className="icon"/>
-                                    <img src={recommendation[2]} alt="" className="icon"/>
-                                </Row>
-                                <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
-                                    <img src={recommendation[3]} alt="" className="icon"/>
-                                    <img src={recommendation[4]} alt="" className="icon"/>
-                                    <img src={recommendation[5]} alt="" className="icon"/>
+                                <Row style = {{marginTop: "5px", marginBottom: "5px"}} > 
+                                {recommendation.map((recommendation,index)=>
+                                    <div className = "col-sm-4" key={index}>
+                                        <img src={recommendation} className="icon" alt = "outfit icon"/>                    
+                                    </div>
+                                )}
                                 </Row>
                             </div>
                         </div>
