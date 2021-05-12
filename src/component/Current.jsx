@@ -2,6 +2,23 @@
 import React, { useState } from 'react'
 import { Button, Modal, Card, Row, Col } from 'react-bootstrap'
 
+//Import local outfit images
+import beanie from "../assesst/beanie.png"
+import hat from "../assesst/hat.png"
+import sunglasses from "../assesst/sunglasses.png"
+import earmuffs from "../assesst/earmuffs.png"
+import mask from "../assesst/mask.png"
+import scarf from "../assesst/scarf.png"
+import thick_jacket from "../assesst/thick jacket.png"
+import sweater from "../assesst/sweater.png"
+import thin_jacket from "../assesst/thin jacket.png"
+import long_sleeves from "../assesst/long sleeves.png"
+import thermal_underwear from "../assesst/thermal underwear.png"
+import gloves from "../assesst/gloves.png"
+import winter_boots from "../assesst/winter boots.png"
+import umbrella from "../assesst/umbrella.png"
+import raincoat from "../assesst/raincoat.png"
+
 
 const Current = ({ weather, address }) => {
 
@@ -48,10 +65,53 @@ const Current = ({ weather, address }) => {
         };
     }
 
+    //Test ml result 
+    const ml = [0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1 ,0, 1, 1, 1]
+    const size = 15
+    //outfit recommendation array
+    var outfit = []
+    const outfit_size = 6
+    var outfit_index = 0
+    //List of outfit
+    var imgArray = []
+    imgArray[0] = beanie
+    imgArray[1] = hat
+    imgArray[2] = sunglasses
+    imgArray[3] = earmuffs
+    imgArray[4] = mask
+    imgArray[5] = scarf
+    imgArray[6] = thick_jacket
+    imgArray[7] = sweater
+    imgArray[8] = thin_jacket
+    imgArray[9] = long_sleeves
+    imgArray[10] = thermal_underwear
+    imgArray[11] = gloves
+    imgArray[12] = winter_boots
+    imgArray[13] = umbrella
+    imgArray[14] = raincoat
+
+    //Function to put outfit into recommendation array 
+    const getOutfit = () => {
+        //Scan ml array
+        for (var i = 0; i < size; i++) {
+            //If value 1, add outfit with according index to recommendation array
+            if (ml[i] === 1) {
+                outfit[outfit_index] = imgArray[i]
+                outfit_index++
+            }
+            //Limit reached, break
+            if (outfit_index === outfit_size) {
+                break
+            }
+        }
+        return outfit
+    }
+
+    outfit = getOutfit()
+    console.log(outfit)
 
     return (
         <div>
-
             <div className="web-container">
                 {/* Weather alerts */}
                 {!weather.alerts ? (
@@ -80,7 +140,6 @@ const Current = ({ weather, address }) => {
                                                         <div role="tabpanel" className="tab-pane active" id={a.event}>
                                                             Location: {address} <br />
                                                             Alert: {weather.alerts.map(alert => (
-                                                            
                                                                 <div>
                                                                     Sender Name: {alert.sender_name} <br />
                                                                     Start: {convert(alert.start)} <br />
@@ -137,33 +196,15 @@ const Current = ({ weather, address }) => {
                         <div className="outfit-box">
                             <h2>Outfit</h2>
                             <div className = "content">
-                                <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190118/ourlarge/pngtree-baseball-cap-hand-drawn-hand-account-book-cartoon-png-image_458138.jpg`}
-                                                alt="Cap" 
-                                    />
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190520/original/pngtree-down-jacket-coat-coat-hairy-png-image_3893118.jpg`}
-                                                alt="Cap" 
-                                    />
-                                     <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190920/original/pngtree-sunglasses-cartoon-png-image_4633566.jpg`}
-                                                alt="Cap" 
-                                    />
+                                <Row style = {{marginTop: "5px", marginBottom: "10px", paddingLeft: "50px"}}>
+                                    <img src={outfit[0]} alt="" className = "icon"/>
+                                    <img src={outfit[1]} alt="" className = "icon"/>
+                                    <img src={outfit[2]} alt="" className = "icon"/> 
                                 </Row>
                                 <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                    src={`https://png.pngtree.com/png-clipart/20190118/ourlarge/pngtree-baseball-cap-hand-drawn-hand-account-book-cartoon-png-image_458138.jpg`}
-                                                    alt="Cap" 
-                                    />
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190520/original/pngtree-down-jacket-coat-coat-hairy-png-image_3893118.jpg`}
-                                                alt="Cap" 
-                                    />
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190920/original/pngtree-sunglasses-cartoon-png-image_4633566.jpg`}
-                                                alt="Cap" 
-                                    />
+                                    <img src={outfit[3]} alt="" className = "icon" />
+                                    <img src={outfit[4]} alt="" className = "icon" />
+                                    <img src={outfit[5]} alt="" className = "icon"/>
                                 </Row>
                             </div>
                         </div>

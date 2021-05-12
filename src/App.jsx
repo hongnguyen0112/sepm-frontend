@@ -59,6 +59,7 @@ function App() {
     //Test the URL
     console.log(url)
   }
+
   return (
     <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
 

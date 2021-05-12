@@ -117,6 +117,10 @@ main{
   text-align: center;
 }
 
+.outfit-box .icon {
+  width: 150px;
+}
+
 .detail-box {
   text-align: left;
   background-color: lightcyan;
