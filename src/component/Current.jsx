@@ -2,8 +2,24 @@
 import React, { useState } from 'react'
 import { Button, Modal, Card, Row, Col } from 'react-bootstrap'
 
+import beanie from "../assesst/beanie.png"
+import hat from "../assesst/hat.png"
+import sunglasses from "../assesst/sunglasses.png"
+import earmuffs from "../assesst/earmuffs.png"
+import mask from "../assesst/mask.png"
+import scarf from "../assesst/scarf.png"
+import thick_jacket from "../assesst/thick jacket.png"
+import sweater from "../assesst/sweater.png"
+import thin_jacket from "../assesst/thin jacket.png"
+import long_sleeves from "../assesst/long sleeves.png"
+import thermal_underwear from "../assesst/thermal underwear.png"
+import gloves from "../assesst/gloves.png"
+import winter_boots from "../assesst/winter boots.png"
+import umbrella from "../assesst/umbrella.png"
+import raincoat from "../assesst/raincoat.png"
 
-const Current = ({ weather, address }) => {
+
+const Current = ({ weather, address, outfit }) => {
 
     
     const [show, setShow] = useState(false);
@@ -34,7 +50,6 @@ const Current = ({ weather, address }) => {
         return direction;
     }
 
-
     // Convert UV Index to risk of harm
     const convertUVIndex = (uvi) => {
         if (uvi <= 2) {
@@ -49,6 +64,52 @@ const Current = ({ weather, address }) => {
             return "Extreme";
         };
     }
+
+    console.log(outfit)
+    var current_outfit = outfit
+    //console.log(current_outfit)
+    const outfit_list_size = 15
+    //outfit recommendation array
+    var recommendation = []
+    const recommendation_size = 6
+    var recommendation_index = 0
+    //List of outfit
+    var imgArray = []
+    imgArray[0] = beanie
+    imgArray[1] = hat
+    imgArray[2] = sunglasses
+    imgArray[3] = earmuffs
+    imgArray[4] = mask
+    imgArray[5] = scarf
+    imgArray[6] = thick_jacket
+    imgArray[7] = sweater
+    imgArray[8] = thin_jacket
+    imgArray[9] = long_sleeves
+    imgArray[10] = thermal_underwear
+    imgArray[11] = gloves
+    imgArray[12] = winter_boots
+    imgArray[13] = umbrella
+    imgArray[14] = raincoat
+
+    //Function to put outfit into recommendation array 
+    const getOutfit = () => {
+        //Scan ml array
+        for (var i = 0; i < outfit_list_size; i++) {
+            //If value 1, add outfit with according index to recommendation array
+            if (current_outfit[i] === 1) {
+                recommendation[recommendation_index] = imgArray[i]
+                recommendation_index++
+            }
+            //Limit reached, break
+            if (recommendation_index === recommendation_size) {
+                break
+            }
+        }
+        return recommendation
+    }
+
+    recommendation = getOutfit()
+    console.log(recommendation)
 
 
     return (

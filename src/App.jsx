@@ -19,10 +19,12 @@ function App() {
     lat: null,
     lng: null
   });
+  
   const [weather, setWeather] = useState({});
   const [outfit, setOutfit] = useState({});
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("Ho Chi Minh City, Vietnam");
+
   //async/await function to get the data from Google Maps API
   const handleSelect = async value => {
     const results = await geocodeByAddress(value); //Get geocode by address
@@ -30,18 +32,28 @@ function App() {
     setLocation(value); //Set the location to the value
     setCoordinates(latLng); //Set latitude and longtitude
   };
+
   const fetchData = () => {
     fetch(`${api.base}onecall?lat=10.8231&lon=106.6297&exclude=minutely&units=metric&appid=${api.key}`)
       .then(res => res.json())
       .then(json => {
         setWeather(json); //Set data of JSON file to weather
-
       });
   }
 
-  const componentDidMount = () => {
-    fetchData();
+  const fetchOutfit = () => {
+    fetch(`http://127.0.0.1:5000/predict?lat=10&lon=106`)
+      .then(res=>res.json())
+      .then(json=>{
+        setOutfit(json);
+      })
   }
+
+  const componentDidMount = () => {
+    fetchData()
+    fetchOutfit()
+  }
+
   const search = evt => {
     if(location.trim().length === 0){
       return;
@@ -59,7 +71,15 @@ function App() {
       });
     //Test the URL
     console.log(url)
+
+    const outfit_url = `http://127.0.0.1:5000/predict?lat=${Math.floor(coordinates.lat)}&lon=${Math.floor(coordinates.lng)}`
+    fetch(outfit_url)
+      .then(res=>res.json())
+      .then(json=>{
+        setOutfit(json);
+      })
   }
+
   return (
     <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>
       {(typeof weather.lat != 'undefined' && typeof weather.lon != 'undefined') ? (
@@ -116,7 +136,7 @@ function App() {
               <Navbar />
               <br />
               <Switch>
-                <Route exact path="/"> <Current weather={weather} address={address} /> </Route>
+                <Route exact path="/"> <Current weather={weather} address={address} outfit={outfit[0]}/> </Route>
                 <Route exact path="/hourly"><Hourly weather={weather} address={address}></Hourly></Route>
                 <Route exact path="/daily"><Daily weather={weather} address={address}></Daily></Route>
               </Switch>

@@ -9,14 +9,9 @@ body{
 }
 
 .app{
-  background-image: url('./assesst/sunny.jpg');
   background-size: cover;
   background-position: bottom;
   transition: 0.4 ease-out;
-}
-
-.app.rain{
-  background-image: url('./assesst/rainny.jpg');
 }
 
 main{
@@ -115,6 +110,10 @@ main{
 .outfit-box .content{
   display: inline-block;
   text-align: center;
+}
+
+.outfit-box .icon {
+  width: 150px;
 }
 
 .detail-box {
