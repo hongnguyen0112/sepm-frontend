@@ -26,6 +26,7 @@ const Current = ({ weather, address, lat, lon }) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [outfit, setOutfit] = useState([]);
+
     //Fetch outfit
     useEffect(()=>{
         axios
@@ -38,7 +39,7 @@ const Current = ({ weather, address, lat, lon }) => {
                 console.log(err)
             })
     }, [lat,lon])
-    {console.log("Outfit: " + outfit)}
+    
     // Convert unix to time
     const convert = (unix) => {
         const date = new Date((unix) * 1000);
@@ -78,7 +79,6 @@ const Current = ({ weather, address, lat, lon }) => {
         };
     }
 
-    console.log(outfit)
     var current_outfit = outfit
     //console.log(current_outfit)
     const outfit_list_size = 15
@@ -213,32 +213,14 @@ const Current = ({ weather, address, lat, lon }) => {
                             <h2>Outfit</h2>
                             <div className = "content">
                                 <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190118/ourlarge/pngtree-baseball-cap-hand-drawn-hand-account-book-cartoon-png-image_458138.jpg`}
-                                                alt="Cap" 
-                                    />
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190520/original/pngtree-down-jacket-coat-coat-hairy-png-image_3893118.jpg`}
-                                                alt="Cap" 
-                                    />
-                                     <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190920/original/pngtree-sunglasses-cartoon-png-image_4633566.jpg`}
-                                                alt="Cap" 
-                                    />
+                                    <img src={recommendation[0]} alt="" className="icon"/>
+                                    <img src={recommendation[1]} alt="" className="icon"/>
+                                    <img src={recommendation[2]} alt="" className="icon"/>
                                 </Row>
                                 <Row style = {{marginTop: "5px", marginBottom: "5px", paddingLeft: "50px"}}>
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                    src={`https://png.pngtree.com/png-clipart/20190118/ourlarge/pngtree-baseball-cap-hand-drawn-hand-account-book-cartoon-png-image_458138.jpg`}
-                                                    alt="Cap" 
-                                    />
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190520/original/pngtree-down-jacket-coat-coat-hairy-png-image_3893118.jpg`}
-                                                alt="Cap" 
-                                    />
-                                    <img style={{ height: "150px", width: "150px"}}
-                                                src={`https://png.pngtree.com/png-clipart/20190920/original/pngtree-sunglasses-cartoon-png-image_4633566.jpg`}
-                                                alt="Cap" 
-                                    />
+                                    <img src={recommendation[3]} alt="" className="icon"/>
+                                    <img src={recommendation[4]} alt="" className="icon"/>
+                                    <img src={recommendation[5]} alt="" className="icon"/>
                                 </Row>
                             </div>
                         </div>
