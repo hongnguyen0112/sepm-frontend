@@ -39,6 +39,7 @@ const Current = ({ weather, address, lat, lon }) => {
             .catch(err=>{
                 console.log(err)
             })
+    // eslint-disable-next-line
     }, [address])
     
     // Convert unix to time
@@ -130,7 +131,7 @@ const Current = ({ weather, address, lat, lon }) => {
     return (
         <div>
             <div className="web-container">
-                
+
                 {/* Weather alerts */}
                 {!weather.alerts ? (
                     '') : (
