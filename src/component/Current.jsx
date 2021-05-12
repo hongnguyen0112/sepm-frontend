@@ -1,7 +1,7 @@
 //Import libraries
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Card, Row, Col } from 'react-bootstrap'
-
+import axios from 'axios'
 import beanie from "../assesst/beanie.png"
 import hat from "../assesst/hat.png"
 import sunglasses from "../assesst/sunglasses.png"
@@ -19,13 +19,26 @@ import umbrella from "../assesst/umbrella.png"
 import raincoat from "../assesst/raincoat.png"
 
 
-const Current = ({ weather, address, outfit }) => {
+const Current = ({ weather, address, lat, lon }) => {
 
     
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const [outfit, setOutfit] = useState([]);
+    //Fetch outfit
+    useEffect(()=>{
+        axios
+            .get(`http://127.0.0.1:5000/predict?lat=${lat}&lon=${lon}`)
+            .then(res=> {
+                console.log(res)
+                setOutfit(res.data[0])
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+    }, [lat,lon])
+    {console.log("Outfit: " + outfit)}
     // Convert unix to time
     const convert = (unix) => {
         const date = new Date((unix) * 1000);

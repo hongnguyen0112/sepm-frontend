@@ -4,8 +4,10 @@ import pandas as pd
 import pickle
 import requests
 import json
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 model = pickle.load(open('AI_model.pkl','rb'))
 @app.route('/')
 def home():
@@ -42,6 +44,7 @@ def predict():
     new_X_test = testData.values[:, 0:15]
     y_hat = model.predict(new_X_test).tolist()
     return jsonify(y_hat)
+
  
 if __name__ == '__main__':
     

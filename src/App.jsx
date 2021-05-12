@@ -16,12 +16,12 @@ const api = {
 
 function App() {
   const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null
+    lat: 10.8231,
+    lng: 106.6297
   });
   
   const [weather, setWeather] = useState({});
-  const [outfit, setOutfit] = useState({});
+ 
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("Ho Chi Minh City, Vietnam");
 
@@ -41,17 +41,8 @@ function App() {
       });
   }
 
-  const fetchOutfit = () => {
-    fetch(`http://127.0.0.1:5000/predict?lat=10&lon=106`)
-      .then(res=>res.json())
-      .then(json=>{
-        setOutfit(json);
-      })
-  }
-
   const componentDidMount = () => {
     fetchData()
-    fetchOutfit()
   }
 
   const search = evt => {
@@ -71,13 +62,6 @@ function App() {
       });
     //Test the URL
     console.log(url)
-
-    const outfit_url = `http://127.0.0.1:5000/predict?lat=${Math.floor(coordinates.lat)}&lon=${Math.floor(coordinates.lng)}`
-    fetch(outfit_url)
-      .then(res=>res.json())
-      .then(json=>{
-        setOutfit(json);
-      })
   }
 
   return (
@@ -136,7 +120,7 @@ function App() {
               <Navbar />
               <br />
               <Switch>
-                <Route exact path="/"> <Current weather={weather} address={address} outfit={outfit[0]}/> </Route>
+                <Route exact path="/"> <Current weather={weather} address={address} lat = {coordinates.lat} lon = {coordinates.lng}/> </Route>
                 <Route exact path="/hourly"><Hourly weather={weather} address={address}></Hourly></Route>
                 <Route exact path="/daily"><Daily weather={weather} address={address}></Daily></Route>
               </Switch>
