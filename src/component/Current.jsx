@@ -38,7 +38,7 @@ const Current = ({ weather, address, lat, lon }) => {
             .catch(err=>{
                 console.log(err)
             })
-    }, [lat,lon])
+    }, [address])
     
     // Convert unix to time
     const convert = (unix) => {
