@@ -59,12 +59,6 @@ function App() {
       });
     //Test the URL
     console.log(url)
-    fetch("http://127.0.0.1:5000/predict")
-      .then(res=>res.json())
-      .then(json=>{
-        setOutfit(json);
-        console.log(json)
-      })
   }
   return (
     <div className="container-fluid" style={{ paddingLeft: '0px', paddingRight: '0px' }}>

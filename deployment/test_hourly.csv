@@ -1,11 +1,9 @@
 dt,temp,feels_like,pressure,humidity,dew_point,uvi,clouds,visibility,wind_speed,wind_deg,wind_gust,weather,pop,rain
-1620784800,30.3,32.21,1009,54,19.96,5.98,60,10000,2.44,111,2.7,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
-1620788400,29.98,31.34,1009,52,19.06,9.49,56,10000,2.46,107,2.8,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
-1620792000,30.85,32.56,1009,51,19.54,12.09,55,10000,2.1,103,2.72,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
-1620795600,32.37,34.55,1008,48,19.95,12.99,52,10000,1.38,100,2.52,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
-1620799200,34.23,36.96,1007,44,20.23,11.82,49,10000,0.71,119,2.33,"[{'id': 802, 'main': 'Clouds', 'description': 'scattered clouds', 'icon': '03d'}]",0.0,
-1620802800,34.85,37.86,1005,43,20.42,3.2,74,10000,1.71,96,2.21,"[{'id': 500, 'main': 'Rain', 'description': 'light rain', 'icon': '10d'}]",0.32,{'1h': 0.13}
-1620806400,33.82,38.33,1004,51,22.29,1.95,90,10000,2.38,108,3.8,"[{'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d'}]",0.0,
+1620792000,31.98,33.86,1008,48,19.6,12.09,53,10000,2.1,103,2.72,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
+1620795600,32.77,35.03,1008,47,19.98,12.99,51,10000,1.38,100,2.52,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
+1620799200,34.01,36.54,1007,44,20.03,11.82,50,10000,0.71,119,2.33,"[{'id': 802, 'main': 'Clouds', 'description': 'scattered clouds', 'icon': '03d'}]",0.0,
+1620802800,34.43,37.04,1006,43,20.04,3.2,69,10000,1.71,96,2.21,"[{'id': 500, 'main': 'Rain', 'description': 'light rain', 'icon': '10d'}]",0.32,{'1h': 0.13}
+1620806400,33.45,37.53,1005,51,21.93,1.95,83,10000,2.38,108,3.8,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
 1620810000,32.16,36.26,1004,56,22.45,0.87,93,10000,3.23,156,5.71,"[{'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d'}]",0.0,
 1620813600,31.44,35.53,1004,59,22.62,0.19,95,10000,4.23,177,6.9,"[{'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d'}]",0.0,
 1620817200,30.6,34.48,1005,62,22.71,0.0,95,10000,4.36,169,7.31,"[{'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d'}]",0.0,
@@ -47,3 +45,5 @@ dt,temp,feels_like,pressure,humidity,dew_point,uvi,clouds,visibility,wind_speed,
 1620946800,26.55,26.55,1006,88,24.42,0.0,77,10000,0.87,136,0.92,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.16,
 1620950400,28.2,32.6,1007,80,24.55,0.83,69,10000,1.42,136,2.1,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.16,
 1620954000,29.89,35.01,1007,71,24.2,2.85,80,10000,2.04,127,2.82,"[{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}]",0.0,
+1620957600,31.65,36.56,1007,61,23.35,6.02,90,10000,2.39,109,3.1,"[{'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d'}]",0.0,
+1620961200,33.15,37.83,1007,54,22.75,9.53,93,10000,2.63,98,3.7,"[{'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d'}]",0.0,

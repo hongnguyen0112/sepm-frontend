@@ -80,11 +80,6 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <div>
-      <form action="{{url_for('predict')}}"method="POST">
-        <input type="number" placeholder="lat" name = "lat" step="0.01">
-        <input type="number" placeholder="lon" name ="lon" step="0.01">
-        <button type="submit" >Predict</button>
-      </form>
       {{ prediction_text }}
     </div>
   </body>
