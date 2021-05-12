@@ -40,8 +40,8 @@ def predict():
     testData.drop('dt', axis='columns', inplace=True) # Drop irrelevant values
 
     new_X_test = testData.values[:, 0:15]
-    y_hat = model.predict(new_X_test)
-    return render_template('index.html', prediction_text='Outfit: {}'.format(y_hat))
+    y_hat = model.predict(new_X_test).tolist()
+    return jsonify(y_hat)
  
 if __name__ == '__main__':
     
