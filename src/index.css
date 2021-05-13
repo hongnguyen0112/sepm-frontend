@@ -108,12 +108,17 @@ main{
   min-height: 100%;
 }
 .outfit-box .content{
-  display: inline-block;
   text-align: center;
+  min-height: 100%;
 }
 
 .outfit-box .icon {
   width: 150px;
+}
+
+.outfit .link {
+  padding-right: 5%;
+  padding-bottom: 2%;
 }
 
 .detail-box {

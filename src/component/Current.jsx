@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal, Card, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+import { Link } from "react-router-dom";
 
 //Import icons
 import beanie from "../assesst/beanie.png"
@@ -217,7 +218,7 @@ const Current = ({ weather, address, lat, lon }) => {
                         <div className="outfit-box">
                             <h2>Outfit</h2>
                             <div className = "content">
-                                <Row style = {{marginTop: "5px", marginBottom: "5px"}} > 
+                                <Row style = {{marginTop: "5px", marginBottom: "5px"}} className="content"> 
                                 {recommendation.map((recommendation,index)=>
                                     <div className = "col-sm-4" key={index}>
                                         <img src={recommendation} className="icon" alt = "outfit icon"/>                    
@@ -225,6 +226,11 @@ const Current = ({ weather, address, lat, lon }) => {
                                 )}
                                 </Row>
                             </div>
+                            <Link to="/hourly" 
+                                className="position-absolute bottom-0 end-0" 
+                                style={{paddingRight: "7%", paddingBottom: "2%", fontSize: "18pt"}}>
+                                Details
+                            </Link>
                         </div>
                     </div>
                 </Row>
