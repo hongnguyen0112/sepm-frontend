@@ -1,17 +1,35 @@
 //Import libraries
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Card, Row, Col, Table, Tabs, Tab } from 'react-bootstrap'
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
+import axios from 'axios'
+import { Link } from "react-router-dom";
+//Import icons
+import beanie from "../assesst/beanie.png"
+import hat from "../assesst/hat.png"
+import sunglasses from "../assesst/sunglasses.png"
+import earmuffs from "../assesst/earmuffs.png"
+import mask from "../assesst/mask.png"
+import scarf from "../assesst/scarf.png"
+import thick_jacket from "../assesst/thick jacket.png"
+import sweater from "../assesst/sweater.png"
+import thin_jacket from "../assesst/thin jacket.png"
+import long_sleeves from "../assesst/long sleeves.png"
+import thermal_underwear from "../assesst/thermal underwear.png"
+import gloves from "../assesst/gloves.png"
+import winter_boots from "../assesst/winter boots.png"
+import umbrella from "../assesst/umbrella.png"
+import raincoat from "../assesst/raincoat.png"
 
 
 
-
-function Hourly({ weather, address }) {
+function Hourly({ weather, address, lat, lon }) {
     const [value, onChange] = useState(['01:00', '23:00']);
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [outfit, setOutfit] = useState([]);
 
     const convert = (unix) => {
         const date = new Date(unix * 1000);
@@ -44,6 +62,65 @@ function Hourly({ weather, address }) {
     }
 
     const [key, setKey] = useState('today');
+
+    useEffect(()=>{
+        axios
+            .get(`http://127.0.0.1:5000/predict?lat=${lat}&lon=${lon}`)
+            .then(res=> {
+                console.log(res)
+                setOutfit(res.data[0])
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+    // eslint-disable-next-line
+    }, [address])
+
+    var current_outfit = outfit
+    const outfit_list_size = 15
+
+    //outfit recommendation array
+    var recommendation = []
+    const recommendation_size = 6
+    var recommendation_index = 0
+
+    //List of outfit
+    var imgArray = []
+    imgArray[0] = beanie
+    imgArray[1] = hat
+    imgArray[2] = sunglasses
+    imgArray[3] = earmuffs
+    imgArray[4] = mask
+    imgArray[5] = scarf
+    imgArray[6] = thick_jacket
+    imgArray[7] = sweater
+    imgArray[8] = thin_jacket
+    imgArray[9] = long_sleeves
+    imgArray[10] = thermal_underwear
+    imgArray[11] = gloves
+    imgArray[12] = winter_boots
+    imgArray[13] = umbrella
+    imgArray[14] = raincoat
+
+    //Function to put outfit into recommendation array 
+    const getOutfit = () => {
+        //Scan ml array
+        for (var i = 0; i < outfit_list_size; i++) {
+            //If value 1, add outfit with according index to recommendation array
+            if (current_outfit[i] === 1) {
+                recommendation[recommendation_index] = imgArray[i]
+                recommendation_index++
+            }
+            //Limit reached, break
+            if (recommendation_index === recommendation_size) {
+                break
+            }
+        }
+        return recommendation
+    }
+
+    recommendation = getOutfit()
+    console.log(recommendation)
 
     return (
         <div>
@@ -97,9 +174,18 @@ function Hourly({ weather, address }) {
                 <Row>
 
 
-                    <div className="col">
+                <div className="col">
                         <div className="outfit-box">
-                            <h2>Recommendation</h2>
+                            <h2>Outfit</h2>
+                            <div className = "content">
+                                <Row style = {{marginTop: "5px", marginBottom: "5px"}} className="content"> 
+                                {recommendation.map((recommendation,index)=>
+                                    <div className = "col-sm-4" key={index}>
+                                        <img src={recommendation} className="icon" alt = "outfit icon"/>                    
+                                    </div>
+                                )}
+                                </Row>
+                            </div>
                         </div>
                     </div>
                 </Row>
