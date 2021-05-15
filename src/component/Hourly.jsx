@@ -47,7 +47,7 @@ function Hourly({ weather, address }) {
 
     return (
         <div>
-            <div>
+            <div className="web-container">
                 {!weather.alerts ? ('') : (
                     <div className="container">
                         <Card className="text-center" style={{ color: "white", width: "400px", marginLeft: "auto", marginRight: "auto", backgroundColor: "#cf615f" }}>
