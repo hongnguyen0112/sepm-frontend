@@ -121,7 +121,7 @@ function App() {
               <br />
               <Switch>
                 <Route exact path="/"> <Current weather={weather} address={address} lat = {coordinates.lat} lon = {coordinates.lng}/> </Route>
-                <Route exact path="/hourly"><Hourly weather={weather} address={address}></Hourly></Route>
+                <Route exact path="/hourly"><Hourly weather={weather} address={address} lat = {coordinates.lat} lon = {coordinates.lng}></Hourly></Route>
                 <Route exact path="/daily"><Daily weather={weather} address={address}></Daily></Route>
               </Switch>
               <Footer />
