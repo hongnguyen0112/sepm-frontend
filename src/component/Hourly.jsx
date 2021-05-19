@@ -1,17 +1,71 @@
 //Import libraries
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Card, Row, Col, Table, Tabs, Tab } from 'react-bootstrap'
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
+import axios from 'axios'
+
+//Import icons
+import beanie from "../assesst/beanie.png"
+import hat from "../assesst/hat.png"
+import sunglasses from "../assesst/sunglasses.png"
+import earmuffs from "../assesst/earmuffs.png"
+import mask from "../assesst/mask.png"
+import scarf from "../assesst/scarf.png"
+import thick_jacket from "../assesst/thick jacket.png"
+import sweater from "../assesst/sweater.png"
+import thin_jacket from "../assesst/thin jacket.png"
+import long_sleeves from "../assesst/long sleeves.png"
+import thermal_underwear from "../assesst/thermal underwear.png"
+import gloves from "../assesst/gloves.png"
+import winter_boots from "../assesst/winter boots.png"
+import umbrella from "../assesst/umbrella.png"
+import raincoat from "../assesst/raincoat.png"
 
 
+function Hourly({ weather, address, lat, lon }) {
 
-
-function Hourly({ weather, address }) {
     const [value, onChange] = useState(['01:00', '23:00']);
-
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [key, setKey] = useState('today');
+    const [outfit, setOutfit] = useState([]);
+
+
+    const getTime = () => {
+        var first_index = parseInt(value[0].slice(0, 2))
+        return first_index
+    }
+    const getLastindex = () => {
+        var last_index = parseInt(value[1].slice(0, 2))
+        return last_index
+    }
+
+    var first_index = getTime()
+    var last_index = getLastindex()
+    console.log(first_index)
+    console.log(last_index)
+
+    var filtered_array = []
+    var filter_index = 0;
+    //Fetch outfit
+    useEffect(()=>{
+    axios
+        .get(`http://127.0.0.1:5000/predict?lat=${lat}&lon=${lon}`)
+        .then(res=> {
+                    for (var i = first_index; i <= last_index; i++){
+                        filtered_array[filter_index] = res.data[i]
+                        filter_index++
+                    }
+                    setOutfit(filtered_array)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    // eslint-disable-next-line
+    }, [address, value])
+    {console.log("OUtfit array: " + outfit)}
+
 
     const convert = (unix) => {
         const date = new Date(unix * 1000);
@@ -19,12 +73,16 @@ function Hourly({ weather, address }) {
         const time = utc_time.slice(-12, -7)
         return time;
     }
+
+
     const convertDate = (unix) => {
         const date = new Date(unix * 1000);
         const utc_time = date.toUTCString()
         const time = utc_time.slice(-25, -7)
         return time;
     }
+
+
     const todaycompare = (time) => {
         var today = new Date()
         const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -32,6 +90,7 @@ function Hourly({ weather, address }) {
         let unix = (Date.parse(datetime) / 1000).toFixed(0)
         return unix;
     }
+
 
     const tmrcompare = (time) => {
         var today = new Date()
@@ -43,7 +102,71 @@ function Hourly({ weather, address }) {
         return unix;
     }
 
-    const [key, setKey] = useState('today');
+   
+
+    var hourly_outfit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    const getGeneralArray = () => {
+        for (var i = 0; i < outfit.length; i++) {
+            for (var j = 0; j < 15; j++) {
+                if (outfit[i][j] === 1) {
+                    hourly_outfit[j] = 1;
+                }
+            }
+        }
+        return hourly_outfit
+    }
+ 
+    hourly_outfit = getGeneralArray()
+    //console.log("outfit: " + outfit)
+    console.log("hourly outfit: " + hourly_outfit)
+    //console.log(hourly_outfit)
+    const outfit_list_size = 15
+
+    //outfit recommendation array
+    var recommendation = []
+    var recommendation_index = 0
+
+    //List of outfit
+    var imgArray = []
+    imgArray[0] = beanie
+    imgArray[1] = hat
+    imgArray[2] = sunglasses
+    imgArray[3] = earmuffs
+    imgArray[4] = mask
+    imgArray[5] = scarf
+    imgArray[6] = thick_jacket
+    imgArray[7] = sweater
+    imgArray[8] = thin_jacket
+    imgArray[9] = long_sleeves
+    imgArray[10] = thermal_underwear
+    imgArray[11] = gloves
+    imgArray[12] = winter_boots
+    imgArray[13] = umbrella
+    imgArray[14] = raincoat
+
+    //Function to put outfit into recommendation array 
+    const getOutfit = () => {
+        //Scan ml array
+        for (var i = 0; i < outfit_list_size; i++) {
+            //If value 1, add outfit with according index to recommendation array
+            if (hourly_outfit[i] === 1) {
+                recommendation[recommendation_index] = imgArray[i]
+                recommendation_index++
+            }
+        }
+        return recommendation
+    }
+
+    recommendation = getOutfit()
+    //console.log(recommendation)
+
+    const test = () => {
+        var len = weather.hourly.filter(data => (todaycompare(value[0]) <= data.dt && data.dt <= todaycompare(value[1]))).length
+        return len;
+    }
+
+    var len = test()
+    console.log(len)
 
     return (
         <div>
@@ -95,11 +218,18 @@ function Hourly({ weather, address }) {
                     </div>)}
 
                 <Row>
-
-
                     <div className="col">
                         <div className="outfit-box">
                             <h2>Recommendation</h2>
+                            <div className = "content">
+                                <Row style = {{marginTop: "5px", marginBottom: "5px"}} className="content"> 
+                                {recommendation.map((recommendation,index)=>
+                                    <div className = "col-sm-4" key={index}>
+                                        <img src={recommendation} className="icon" alt = "outfit icon"/>                    
+                                    </div>
+                                )}
+                                </Row>
+                            </div>
                         </div>
                     </div>
                 </Row>
@@ -118,7 +248,6 @@ function Hourly({ weather, address }) {
                                     value={value}
                                     clearIcon = {null}
                                     disableClock='true'
-                                    
                                 />
 
                             </div></Col>
