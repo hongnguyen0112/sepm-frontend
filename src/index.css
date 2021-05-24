@@ -190,3 +190,13 @@ div .recommendations{
   height: 100px;
   padding-top: 35px;
 }
+
+.dailybox
+{
+  text-align: left;
+  background-color: lightcyan;
+  border-radius: 20px;
+  padding: 2%;
+  min-height: 100%;
+  height: 850px;
+}
