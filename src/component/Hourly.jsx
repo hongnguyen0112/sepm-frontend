@@ -117,9 +117,6 @@ function Hourly({ weather, address, lat, lon }) {
     }
  
     hourly_outfit = getGeneralArray()
-    //console.log("outfit: " + outfit)
-    console.log("hourly outfit: " + hourly_outfit)
-    //console.log(hourly_outfit)
     const outfit_list_size = 15
 
     //outfit recommendation array
@@ -158,7 +155,6 @@ function Hourly({ weather, address, lat, lon }) {
     }
 
     recommendation = getOutfit()
-    //console.log(recommendation)
 
     const test = () => {
         var len = weather.hourly.filter(data => (todaycompare(value[0]) <= data.dt && data.dt <= todaycompare(value[1]))).length
@@ -242,15 +238,16 @@ function Hourly({ weather, address, lat, lon }) {
                         <hr />
                         <Row>
                             <Col><b>Time selection</b></Col>
-                            <Col><div>
-                                <TimeRangePicker
-                                    onChange={onChange}
-                                    value={value}
-                                    clearIcon = {null}
-                                    disableClock='true'
-                                />
-
-                            </div></Col>
+                                <Col>
+                                    <div>
+                                        <TimeRangePicker
+                                            onChange={onChange}
+                                            value={value}
+                                            clearIcon = {null}
+                                            disableClock='true'
+                                        />
+                                    </div>
+                                </Col>
                         </Row>
                         <Row>
                             <br />
@@ -260,84 +257,91 @@ function Hourly({ weather, address, lat, lon }) {
                                 onSelect={(k) => setKey(k)}
                             >
                                 <Tab eventKey="today" title="Today">
-                                    <Row>
-
-
+                                    <Row>                                  
                                         <div >
-                                            <Table>
-                                                <thead>
+                                            <Table bordered striped hover responsive>
+                                                <thead class="thead-dark table align-middle">
                                                     <tr>
                                                         <th><b>Time</b></th>
+                                                        <th></th>
                                                         <th><b>Temperatures</b></th>
                                                         <th><b>Humidity</b></th>
                                                         <th><b>Rain probability</b></th>
                                                         <th><b>UV Index</b></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 {weather.hourly.filter(data => (todaycompare(value[0]) <= data.dt && data.dt <= todaycompare(value[1]))).map((data, index) => (
-                                                    <tbody key={index}>
-                                                        <tr data-toggle="collapse"
-                                                            data-target=".multi-collapse1"
-                                                            aria-controls="multiCollapseExample1">
-
+                                                    <tbody key={index} >
+                                                        <tr class = "align-middle">
                                                             <td>{convertDate(data.dt + weather.timezone_offset * 1)}</td>
+                                                            <td><img style = {{height:"50px", width: "50px"}}
+                                                                        src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+                                                                        alt="icon"/></td>
                                                             <td>{data.temp.toFixed(0)}°C</td>
                                                             <td>{data.humidity} %</td>
                                                             <td>{data.pop} % </td>
                                                             <td>{data.uvi}</td>
+                                                            <td><button class="btn btn-primary" type="button" data-toggle="collapse" data-target={`#collapseExample${index}`} aria-expanded="true" aria-controls="collapseExample">
+                                                                    More
+                                                                </button>
+                                                            </td>
                                                         </tr>
-                                                        <tr class="collapse multi-collapse1" id="multiCollapseExample1"> <b>
-                                                            <td>Wind speed: {data.wind_speed.toFixed(0) * 3.6} km/h </td>
+                                                        <tr class="collapse table-warning align-middle" id={`collapseExample${index}`}>                                                      
+                                                            <td >Wind speed: {data.wind_speed.toFixed(0) * 3.6} km/h </td>
                                                             <td>Pressure:  {data.pressure} hPa</td>
                                                             <td>Dew point: {data.dew_point.toFixed(0)}°C</td>
                                                             <td>Visibility: {data.visibility / 1000} km</td>
                                                             <td>Cloudiness: {data.clouds} % </td>
                                                             <td>Wind gust: {data.wind_gust.toFixed(0) * 3.6} km/h</td>
-                                                        </b>
-                                                        </tr>
+                                                            <td></td>                                                            
+                                                        </tr>                                                                                                                    
                                                     </tbody>
                                                 ))}
                                             </Table>
-                                        </div>
+                                        </div>                                       
                                     </Row>
                                 </Tab>
                                 <Tab eventKey="tomorrow" title="Tomorrow">
                                     <div>
                                         <Row>
-                                            <div >
-                                                <Table>
-                                                    <thead>
+                                            <div>
+                                                <Table bordered striped hover responsive>
+                                                    <thead class="thead-dark table align-middle">
                                                         <tr>
                                                             <th><b>Time</b></th>
+                                                            <th></th>
                                                             <th><b>Temperatures</b></th>
                                                             <th><b>Humidity</b></th>
                                                             <th><b>Rain probability</b></th>
                                                             <th><b>UV Index</b></th>
+                                                            <th></th>                                                            
                                                         </tr>
                                                     </thead>
                                                     {weather.hourly.filter(data => (tmrcompare(value[0]) <= data.dt && data.dt <= tmrcompare(value[1]))).map((data, index) => (
                                                         <tbody key={index}>
-                                                            <tr data-toggle="collapse"
-                                                                data-target=".multi-collapse1"
-                                                                aria-controls="multiCollapseExample1">
-
+                                                            <tr>
                                                                 <td>{convertDate(data.dt + weather.timezone_offset * 1)}</td>
+                                                                <td><img style = {{height:"50px", width: "50px"}}
+                                                                        src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+                                                                        alt="icon"/></td>
                                                                 <td>{data.temp.toFixed(0)}°C</td>
                                                                 <td>{data.humidity} %</td>
                                                                 <td>{data.pop} % </td>
                                                                 <td>{data.uvi}</td>
-
+                                                                <td><button class="btn btn-primary" type="button" data-toggle="collapse" data-target={`#collapseExample${index}`} aria-expanded="true" aria-controls="collapseExample">
+                                                                    More
+                                                                    </button>
+                                                                </td>
                                                             </tr>
-
-                                                            <tr class="collapse multi-collapse1" id="multiCollapseExample1"> <b>
-
+                                                            <tr class="collapse table-warning" id={`collapseExample${index}`}>
                                                                 <td>Wind speed: {data.wind_speed.toFixed(0) * 3.6} km/h </td>
                                                                 <td>Pressure:  {data.pressure} hPa</td>
                                                                 <td>Dew point: {data.dew_point.toFixed(0)}°C</td>
                                                                 <td>Visibility: {data.visibility / 1000} km</td>
                                                                 <td>Cloudiness: {data.clouds} % </td>
                                                                 <td>Wind gust: {data.wind_gust.toFixed(0) * 3.6} km/h</td>
-                                                            </b>
+                                                                <td></td>                                                                                                                           
                                                             </tr>
                                                         </tbody>
                                                     ))}
