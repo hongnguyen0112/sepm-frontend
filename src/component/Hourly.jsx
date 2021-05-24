@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Modal, Card, Row, Col, Table, Tabs, Tab } from 'react-bootstrap'
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
 import axios from 'axios'
-import { Link } from "react-router-dom";
+
 //Import icons
 import beanie from "../assesst/beanie.png"
 import hat from "../assesst/hat.png"
@@ -23,7 +23,7 @@ import raincoat from "../assesst/raincoat.png"
 
 
 
-function Hourly({ weather, address, lat, lon }) {
+const Hourly = ({ weather, address, lat, lon }) => {
     const [value, onChange] = useState(['01:00', '23:00']);
 
     const [show, setShow] = useState(false);
@@ -31,18 +31,21 @@ function Hourly({ weather, address, lat, lon }) {
     const handleShow = () => setShow(true);
     const [outfit, setOutfit] = useState([]);
 
-    const convert = (unix) => {
-        const date = new Date(unix * 1000);
-        const utc_time = date.toUTCString()
-        const time = utc_time.slice(-12, -7)
-        return time;
-    }
     const convertDate = (unix) => {
         const date = new Date(unix * 1000);
         const utc_time = date.toUTCString()
         const time = utc_time.slice(-25, -7)
         return time;
     }
+
+    // Convert unix to time
+    const convert = (unix) => {
+        const date = new Date(unix * 1000);
+        const utc_time = date.toUTCString()
+        const time = utc_time.slice(-12, -7)
+        return time;
+    }
+           
     const todaycompare = (time) => {
         var today = new Date()
         const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -60,9 +63,7 @@ function Hourly({ weather, address, lat, lon }) {
         let unix = (Date.parse(datetime) / 1000).toFixed(0)
         return unix;
     }
-
-    const [key, setKey] = useState('today');
-
+    //Fetch outfit
     useEffect(()=>{
         axios
             .get(`http://127.0.0.1:5000/predict?lat=${lat}&lon=${lon}`)
@@ -74,14 +75,17 @@ function Hourly({ weather, address, lat, lon }) {
                 console.log(err)
             })
     // eslint-disable-next-line
-    }, [address])
+    }, [address], value)
+
+    const [key, setKey] = useState('today');
+    
 
     var current_outfit = outfit
     const outfit_list_size = 15
 
     //outfit recommendation array
     var recommendation = []
-    const recommendation_size = 6
+    const recommendation_size = 15
     var recommendation_index = 0
 
     //List of outfit
@@ -112,9 +116,7 @@ function Hourly({ weather, address, lat, lon }) {
                 recommendation_index++
             }
             //Limit reached, break
-            if (recommendation_index === recommendation_size) {
-                break
-            }
+            
         }
         return recommendation
     }
@@ -123,8 +125,8 @@ function Hourly({ weather, address, lat, lon }) {
     console.log(recommendation)
 
     return (
-        <div>
-            <div>
+        <div className = "web-container">
+            <div >
                 {!weather.alerts ? ('') : (
                     <div className="container">
                         <Card className="text-center" style={{ color: "white", width: "400px", marginLeft: "auto", marginRight: "auto", backgroundColor: "#cf615f" }}>
@@ -171,11 +173,10 @@ function Hourly({ weather, address, lat, lon }) {
                         </Card>
                     </div>)}
 
-                <Row>
-
-
-                <div className="col">
+                <Row>                  
+                    <div>
                         <div className="outfit-box">
+                            <h2>{address}</h2>
                             <h2>Outfit</h2>
                             <div className = "content">
                                 <Row style = {{marginTop: "5px", marginBottom: "5px"}} className="content"> 
@@ -186,10 +187,11 @@ function Hourly({ weather, address, lat, lon }) {
                                 )}
                                 </Row>
                             </div>
+                        
                         </div>
                     </div>
                 </Row>
-
+                
                 <Row>
                     <div className="detail-box">
                         <h2>Details</h2>
@@ -225,6 +227,7 @@ function Hourly({ weather, address, lat, lon }) {
                                                 <thead>
                                                     <tr>
                                                         <th><b>Time</b></th>
+                                                        <th></th>
                                                         <th><b>Temperatures</b></th>
                                                         <th><b>Humidity</b></th>
                                                         <th><b>Rain probability</b></th>
@@ -238,6 +241,9 @@ function Hourly({ weather, address, lat, lon }) {
                                                             aria-controls="multiCollapseExample1">
 
                                                             <td>{convertDate(data.dt + weather.timezone_offset * 1)}</td>
+                                                            <td><img style = {{height:"60px", width: "60px"}}
+                                                                         src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+                                                                         alt="icon"/></td>
                                                             <td>{data.temp.toFixed(0)}°C</td>
                                                             <td>{data.humidity} %</td>
                                                             <td>{data.pop} % </td>
@@ -266,6 +272,7 @@ function Hourly({ weather, address, lat, lon }) {
                                                     <thead>
                                                         <tr>
                                                             <th><b>Time</b></th>
+                                                            <th></th>
                                                             <th><b>Temperatures</b></th>
                                                             <th><b>Humidity</b></th>
                                                             <th><b>Rain probability</b></th>
@@ -279,6 +286,9 @@ function Hourly({ weather, address, lat, lon }) {
                                                                 aria-controls="multiCollapseExample1">
 
                                                                 <td>{convertDate(data.dt + weather.timezone_offset * 1)}</td>
+                                                                <td><img style = {{height:"60px", width: "60px"}}
+                                                                         src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+                                                                         alt="icon"/></td>
                                                                 <td>{data.temp.toFixed(0)}°C</td>
                                                                 <td>{data.humidity} %</td>
                                                                 <td>{data.pop} % </td>
