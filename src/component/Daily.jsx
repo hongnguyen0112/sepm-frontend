@@ -139,7 +139,7 @@ const Daily = ({ weather, address }) => {
 
                         {/* Loop function */}
                         {weather.daily.map((mapdaily, index) => (
-                            <div className='col-xl-8' key={index}>
+                            <div className='col-xl-10' key={index}>
 
                                 {/* Tab starts */}
                                 <Tabs defaultActiveKey="simple" id="uncontrolled-tab-example">
@@ -255,7 +255,7 @@ const Daily = ({ weather, address }) => {
                                                     Wind direction: <span style = {{float: "right"}}> {convertWindDirection(mapdaily.wind_deg)} </span><br/><br/>
                                                     Cloudiness: <span style = {{float: "right"}}> {mapdaily.clouds} % </span><br/><br/>
                                                     UV index: <span style = {{float: "right"}}> {mapdaily.uvi} {convertUVIndex(mapdaily.uvi)} </span><br/><br/>
-                                                    Rain: <span style = {{float: "right"}}> {mapdaily.pop * 100}%, {mapdaily.rain}mm </span><br/><br/>
+                                                    Rain: <span style = {{float: "right"}}> {mapdaily.pop.toFixed(0) * 100}%, {mapdaily.rain}mm </span><br/><br/>
                                                     Snow: <span style = {{float: "right"}}> {mapdaily.snow} mm </span>
                                                 </Card.Text>
                                             </Card.Body>
